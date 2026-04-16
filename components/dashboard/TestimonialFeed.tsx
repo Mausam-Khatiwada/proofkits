@@ -83,7 +83,7 @@ export function TestimonialFeed({ testimonials }: TestimonialFeedProps) {
   return (
     <div className="bg-white rounded-2xl border border-[#EDE9FE] overflow-hidden hover:shadow-[0_4px_20px_rgba(124,58,237,0.08)] transition-shadow duration-200">
       {/* Header with tabs */}
-      <div className="px-6 pt-5 pb-4 border-b border-gray-50 flex items-center justify-between">
+      <div className="px-4 pt-5 pb-4 md:px-6 border-b border-gray-50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
         <h2 className="font-semibold text-gray-800">Recent Testimonials</h2>
         <div className="flex items-center gap-1">
           {tabs.map((tab) => (
@@ -115,8 +115,9 @@ export function TestimonialFeed({ testimonials }: TestimonialFeedProps) {
           {filtered.slice(0, 5).map((t) => (
             <div
               key={t.id}
-              className="px-6 py-4 hover:bg-violet-50/30 transition-colors group flex gap-4"
+              className="px-4 py-4 md:px-6 hover:bg-violet-50/30 transition-colors group flex flex-col sm:flex-row gap-3 sm:gap-4"
             >
+              <div className="flex gap-3 sm:gap-4 flex-1 min-w-0">
               {/* Avatar */}
               <div
                 className={`w-11 h-11 rounded-full flex-shrink-0 flex items-center justify-center text-white text-sm font-semibold ${getAvatarColor(
@@ -160,9 +161,10 @@ export function TestimonialFeed({ testimonials }: TestimonialFeedProps) {
                   {t.body}
                 </p>
               </div>
+              </div>
 
               {/* Actions */}
-              <div className="flex flex-col items-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="flex items-center gap-2 sm:flex-col sm:items-end sm:gap-2 sm:opacity-0 group-hover:opacity-100 transition-opacity">
                 <span className="text-xs text-gray-300 mb-auto">
                   {timeAgo(t.created_at)}
                 </span>

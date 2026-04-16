@@ -23,7 +23,7 @@ export function TopHeader({ userName, onNewWidget, pendingCount = 0 }: TopHeader
           {greeting}, {firstName} 👋
         </p>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5 sm:gap-2">
         <ThemeToggle className="border-[var(--dash-border)] bg-[var(--dash-surface)] text-[var(--dash-text)] hover:bg-[var(--dash-surface-muted)]" />
         <Link
           href="/inbox"
@@ -36,14 +36,14 @@ export function TopHeader({ userName, onNewWidget, pendingCount = 0 }: TopHeader
             </span>
           )}
         </Link>
-        <div className="mx-1 h-5 w-px bg-[var(--dash-border)]" />
+        <div className="mx-1 h-5 w-px bg-[var(--dash-border)] hidden sm:block" />
         <button
           type="button"
           onClick={onNewWidget}
-          className="bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-700 hover:to-cyan-700 text-white text-sm font-medium px-4 py-2 rounded-xl flex items-center gap-2 transition-colors duration-150"
+          className="bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-700 hover:to-cyan-700 text-white text-sm font-medium px-3 py-2 sm:px-4 rounded-xl flex items-center gap-1.5 sm:gap-2 transition-colors duration-150"
         >
           <Plus className="w-4 h-4" />
-          New Widget
+          <span className="hidden sm:inline">New Widget</span>
         </button>
       </div>
     </header>
