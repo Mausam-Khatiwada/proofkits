@@ -26,7 +26,7 @@ export function InboxContent({ testimonials, widgetMap }: InboxContentProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] px-8 flex items-center justify-between">
+      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] pl-14 pr-4 md:px-8 flex items-center justify-between">
         <div>
           <h1 className="text-lg font-semibold text-gray-900">Inbox</h1>
           <p className="text-sm text-[#7C6D9A] -mt-0.5">
@@ -35,7 +35,7 @@ export function InboxContent({ testimonials, widgetMap }: InboxContentProps) {
         </div>
       </header>
 
-      <div className="px-8 py-6">
+      <div className="px-4 py-6 md:px-8">
         {testimonials.length === 0 ? (
           <div className="bg-white rounded-2xl border border-[#EDE9FE] p-16 text-center">
             <Inbox className="w-12 h-12 text-violet-200 mx-auto" />
@@ -50,8 +50,9 @@ export function InboxContent({ testimonials, widgetMap }: InboxContentProps) {
               {testimonials.map((t) => (
                 <div
                   key={t.id}
-                  className="px-6 py-5 hover:bg-violet-50/30 transition-colors group flex gap-4"
+                  className="px-4 py-5 md:px-6 hover:bg-violet-50/30 transition-colors group flex flex-col sm:flex-row gap-4"
                 >
+                  <div className="flex gap-4 flex-1 min-w-0">
                   <div
                     className={`w-11 h-11 rounded-full flex-shrink-0 flex items-center justify-center text-white text-sm font-semibold ring-2 ring-amber-300 ring-offset-2 ${getAvatarColor(
                       t.author_name
@@ -97,7 +98,8 @@ export function InboxContent({ testimonials, widgetMap }: InboxContentProps) {
                       {timeAgo(t.created_at)}
                     </p>
                   </div>
-                  <div className="flex items-start gap-2 flex-shrink-0">
+                  </div>
+                  <div className="flex items-center sm:items-start gap-2 sm:mt-0 pt-2 sm:pt-0 flex-shrink-0">
                     <button
                       type="button"
                       onClick={() => handleApprove(t.id)}
@@ -109,7 +111,7 @@ export function InboxContent({ testimonials, widgetMap }: InboxContentProps) {
                     <button
                       type="button"
                       onClick={() => handleDelete(t.id)}
-                      className="p-2 rounded-xl text-gray-300 hover:text-red-500 hover:bg-red-50 transition-colors opacity-0 group-hover:opacity-100"
+                      className="p-2 rounded-xl text-gray-300 hover:text-red-500 hover:bg-red-50 transition-colors sm:opacity-0 group-hover:opacity-100"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>

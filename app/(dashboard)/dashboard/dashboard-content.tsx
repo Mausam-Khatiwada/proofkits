@@ -86,7 +86,7 @@ export function DashboardContent({
         pendingCount={totalPending}
       />
 
-      <div className="px-8 py-6">
+      <div className="px-4 py-6 md:px-8">
         <div
           className={`mb-4 inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold tracking-[0.16em] uppercase ${
             normalizedPlan === 'pro'
@@ -154,7 +154,7 @@ export function DashboardContent({
         )}
 
         {/* Stats Row */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <StatCard
             icon={MessageSquare}
             iconBg="bg-violet-100"
@@ -202,21 +202,21 @@ export function DashboardContent({
         </div>
 
         {/* Main Content Area */}
-        <div className="grid grid-cols-3 gap-5 mt-6">
+        <div className="mt-6 grid grid-cols-1 gap-5 xl:grid-cols-3">
           {/* Left: Testimonial Feed (2/3) */}
-          <div className="col-span-2">
+          <div className="xl:col-span-2">
             <TestimonialFeed testimonials={testimonials} />
           </div>
 
           {/* Right: Quick Actions (1/3) */}
-          <div className="col-span-1 flex flex-col gap-4">
+          <div className="flex flex-col gap-4 xl:col-span-1">
             <QuickSend widgets={widgets} />
             <WidgetHealth widgets={widgets} />
           </div>
         </div>
 
         {/* Bottom Row */}
-        <div className="grid grid-cols-2 gap-5 mt-5">
+        <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-2">
           <WallOfLove testimonials={testimonials} />
           <ApprovalRate total={totalTestimonials} approved={totalApproved} />
         </div>

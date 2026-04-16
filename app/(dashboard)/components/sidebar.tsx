@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
@@ -12,6 +13,8 @@ import {
   BarChart3,
   Settings,
   LogOut,
+  Menu,
+  X
 } from 'lucide-react';
 import { getInitials, getAvatarColor } from '@/components/dashboard/utils';
 
@@ -40,6 +43,11 @@ function isItemActive(item: NavItem, pathname: string): boolean {
 export function Sidebar({ email, plan, fullName, pendingCount }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   const navGroups: { label: string; items: NavItem[] }[] = [
     {
@@ -79,16 +87,35 @@ export function Sidebar({ email, plan, fullName, pendingCount }: SidebarProps) {
   const displayName = fullName || email.split('@')[0];
 
   return (
-    <aside className="fixed left-0 top-0 z-40 flex h-full w-[220px] flex-col border-r border-[var(--dash-sidebar-border)] bg-[var(--dash-sidebar-bg)]">
-      {/* Logo */}
-      <div className="px-5 pt-6 pb-4">
-        <Link href="/dashboard" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-cyan-600 flex items-center justify-center">
-            <span className="text-white font-bold text-sm">P</span>
-          </div>
-          <span className="font-semibold text-base text-[var(--dash-sidebar-title)]">ProofKits</span>
-        </Link>
-      </div>
+    <>
+      <button
+        type="button"
+        onClick={() => setIsOpen(true)}
+        className="fixed top-3 left-4 z-40 md:hidden p-2 rounded-lg bg-[var(--dash-surface)] border border-[var(--dash-border)] text-[var(--dash-text)] shadow-sm"
+      >
+        <Menu className="w-5 h-5" />
+      </button>
+
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      <aside className={`fixed left-0 top-0 z-50 flex h-full w-[220px] flex-col border-r border-[var(--dash-sidebar-border)] bg-[var(--dash-sidebar-bg)] transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+        {/* Logo */}
+        <div className="px-5 pt-6 pb-4 flex justify-between items-center">
+          <Link href="/dashboard" className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-cyan-600 flex items-center justify-center">
+              <span className="text-white font-bold text-sm">P</span>
+            </div>
+            <span className="font-semibold text-base text-[var(--dash-sidebar-title)]">ProofKits</span>
+          </Link>
+          <button onClick={() => setIsOpen(false)} className="md:hidden text-[var(--dash-sidebar-label)] hover:text-[var(--dash-text)]">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
       <div className="mx-5 h-px bg-[var(--dash-sidebar-border)]" />
 
       {/* Navigation */}
@@ -162,5 +189,6 @@ export function Sidebar({ email, plan, fullName, pendingCount }: SidebarProps) {
         </div>
       </div>
     </aside>
+    </>
   );
 }

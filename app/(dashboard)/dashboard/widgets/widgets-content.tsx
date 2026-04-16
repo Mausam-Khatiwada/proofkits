@@ -44,7 +44,7 @@ export function WidgetsContent({ widgets }: WidgetsContentProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] px-8 flex items-center justify-between">
+      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] pl-14 pr-4 md:px-8 flex items-center justify-between">
         <div>
           <h1 className="text-lg font-semibold text-gray-900">Widgets</h1>
           <p className="text-sm text-[#7C6D9A] -mt-0.5">
@@ -61,7 +61,7 @@ export function WidgetsContent({ widgets }: WidgetsContentProps) {
         </button>
       </header>
 
-      <div className="px-8 py-6">
+      <div className="px-4 py-6 md:px-8">
         {/* Create Widget Modal */}
         {showForm && (
           <div

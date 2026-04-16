@@ -33,7 +33,7 @@ export default async function WallOfLovePage() {
 
   return (
     <>
-      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] px-8 flex items-center">
+      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] pl-14 pr-4 md:px-8 flex items-center">
         <div>
           <h1 className="text-lg font-semibold text-gray-900">
             Wall of Love ❤️
@@ -45,7 +45,7 @@ export default async function WallOfLovePage() {
         </div>
       </header>
 
-      <div className="px-8 py-6">
+      <div className="px-4 py-6 md:px-8">
         {testimonials.length === 0 ? (
           <div className="bg-white rounded-2xl border border-[#EDE9FE] p-16 text-center">
             <Heart className="w-12 h-12 text-violet-200 mx-auto" />

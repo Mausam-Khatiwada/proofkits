@@ -82,7 +82,7 @@ export function SettingsContent({ profile }: SettingsContentProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] px-8 flex items-center">
+      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] pl-14 pr-4 md:px-8 flex items-center">
         <div>
           <h1 className="text-lg font-semibold text-gray-900">Settings</h1>
           <p className="text-sm text-[#7C6D9A] -mt-0.5">
@@ -91,7 +91,7 @@ export function SettingsContent({ profile }: SettingsContentProps) {
         </div>
       </header>
 
-      <div className="px-8 py-6 max-w-2xl">
+      <div className="px-4 py-6 md:px-8 max-w-2xl">
         {/* Profile Section */}
         <div className="bg-white rounded-2xl border border-[#EDE9FE] p-6 mb-5 shadow-[0_1px_3px_rgba(124,58,237,0.06)] hover:shadow-[0_4px_20px_rgba(124,58,237,0.08)] transition-shadow duration-200">
           <h2 className="text-sm font-semibold text-gray-800 mb-4 flex items-center gap-2">

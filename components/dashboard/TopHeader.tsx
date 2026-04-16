@@ -16,7 +16,7 @@ export function TopHeader({ userName, onNewWidget, pendingCount = 0 }: TopHeader
     hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-[var(--dash-border)] bg-[var(--dash-surface)] px-8 backdrop-blur-xl">
+    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-[var(--dash-border)] bg-[var(--dash-surface)] pl-14 pr-4 md:px-8 backdrop-blur-xl">
       <div>
         <h1 className="text-lg font-semibold text-[var(--dash-text)]">Dashboard</h1>
         <p className="-mt-0.5 text-sm text-[var(--dash-muted)]">

@@ -443,7 +443,7 @@ export default function HomePage() {
           />
 
           <div className="overflow-hidden rounded-3xl border border-[var(--landing-panel-border)] bg-[var(--landing-panel)] shadow-[0_20px_50px_rgba(27,45,80,0.14)]">
-            <div className="grid grid-cols-[1.2fr_1fr_1fr] border-b border-[var(--landing-panel-border)] bg-[var(--landing-panel-muted)] px-5 py-4 text-sm font-semibold text-[var(--landing-text)] sm:px-8">
+            <div className="hidden md:grid grid-cols-[1.2fr_1fr_1fr] border-b border-[var(--landing-panel-border)] bg-[var(--landing-panel-muted)] px-5 py-4 text-sm font-semibold text-[var(--landing-text)] sm:px-8">
               <p>Capability</p>
               <p>ProofKits</p>
               <p>Traditional setup</p>
@@ -451,11 +451,17 @@ export default function HomePage() {
             {comparisonRows.map((row) => (
               <div
                 key={row.label}
-                className="grid grid-cols-[1.2fr_1fr_1fr] border-b border-[var(--landing-panel-border)] px-5 py-4 text-sm leading-6 text-[var(--landing-muted)] last:border-b-0 sm:px-8"
+                className="grid gap-3 border-b border-[var(--landing-panel-border)] px-5 py-5 text-sm leading-6 text-[var(--landing-muted)] last:border-b-0 sm:px-8 md:grid-cols-[1.2fr_1fr_1fr] md:gap-0 md:py-4"
               >
                 <p className="font-semibold text-[var(--landing-text)]">{row.label}</p>
-                <p>{row.proofkit}</p>
-                <p>{row.traditional}</p>
+                <div>
+                  <span className="mb-1 block text-xs font-semibold uppercase tracking-wider text-[var(--landing-soft)] md:hidden">ProofKits</span>
+                  <p>{row.proofkit}</p>
+                </div>
+                <div>
+                  <span className="mb-1 block text-xs font-semibold uppercase tracking-wider text-[var(--landing-soft)] md:hidden">Traditional Setup</span>
+                  <p>{row.traditional}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -574,6 +580,9 @@ export default function HomePage() {
           <div className="flex flex-wrap gap-5 text-sm font-medium text-[var(--landing-muted)]">
             <Link href="/pricing" className="transition-colors hover:text-[var(--landing-accent)]">
               Pricing
+            </Link>
+            <Link href="/login" className="transition-colors hover:text-[var(--landing-accent)] sm:hidden">
+              Sign In
             </Link>
             <Link href="/contact" className="transition-colors hover:text-[var(--landing-accent)]">
               Contact

@@ -92,7 +92,7 @@ export default async function AnalyticsPage() {
 
   return (
     <>
-      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] px-8 flex items-center">
+      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] pl-14 pr-4 md:px-8 flex items-center">
         <div>
           <h1 className="text-lg font-semibold text-gray-900">Analytics</h1>
           <p className="text-sm text-[#7C6D9A] -mt-0.5">
@@ -101,9 +101,9 @@ export default async function AnalyticsPage() {
         </div>
       </header>
 
-      <div className="px-8 py-6">
+      <div className="px-4 py-6 md:px-8">
         {/* Stats Grid */}
-        <div className="grid grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 gap-4 mb-6 sm:grid-cols-2 xl:grid-cols-4">
           {stats.map((s) => {
             const Icon = s.icon;
             return (
@@ -123,7 +123,7 @@ export default async function AnalyticsPage() {
           })}
         </div>
 
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {/* Rating Distribution */}
           <div className="bg-white rounded-2xl border border-[#EDE9FE] p-5 shadow-[0_1px_3px_rgba(124,58,237,0.06)]">
             <h3 className="text-sm font-semibold text-gray-800 mb-4">
@@ -211,7 +211,7 @@ export default async function AnalyticsPage() {
             <h3 className="text-sm font-semibold text-gray-800 mb-4">
               Performance by Widget
             </h3>
-            <div className="overflow-hidden rounded-xl border border-gray-100">
+            <div className="overflow-x-auto rounded-xl border border-gray-100">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-gray-50 text-left">

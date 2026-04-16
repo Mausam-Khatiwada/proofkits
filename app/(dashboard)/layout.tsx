@@ -66,7 +66,7 @@ export default async function DashboardLayout({
         fullName={profile?.full_name ?? null}
         pendingCount={pendingCount}
       />
-      <main className="ml-[220px] min-h-screen bg-[var(--dash-bg)] text-[var(--dash-text)]">
+      <main className="md:ml-[220px] min-h-screen bg-[var(--dash-bg)] text-[var(--dash-text)] transition-[margin]">
         {children}
       </main>
     </div>
