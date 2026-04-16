@@ -1,0 +1,6 @@
+BEGIN;
+
+ALTER TABLE event_outbox
+  ADD COLUMN IF NOT EXISTS last_error TEXT;
+
+COMMIT;
