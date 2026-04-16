@@ -221,13 +221,13 @@ export default function HomePage() {
       </div>
 
       <header className="sticky top-0 z-50 border-b border-[var(--app-border)] bg-[var(--app-surface)] backdrop-blur-xl">
-        <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6" aria-label="Main">
-          <div className="flex items-center gap-4 sm:gap-8 lg:gap-12">
-            <Link href="/" className="group flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 via-fuchsia-500 to-cyan-500 shadow-[0_0_30px_rgba(91,61,245,0.45)] transition-transform duration-300 group-hover:scale-105">
-                <span className="font-display text-lg font-bold leading-none text-white">P</span>
+        <nav className="mx-auto flex h-16 sm:h-20 max-w-7xl items-center justify-between px-4 sm:px-6" aria-label="Main">
+          <div className="flex items-center gap-3 sm:gap-8 lg:gap-12">
+            <Link href="/" className="group flex items-center gap-2 sm:gap-3">
+              <div className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 via-fuchsia-500 to-cyan-500 shadow-[0_0_30px_rgba(91,61,245,0.45)] transition-transform duration-300 group-hover:scale-105">
+                <span className="font-display text-base sm:text-lg font-bold leading-none text-white">P</span>
               </div>
-              <span className="font-display text-xl font-bold tracking-[-0.02em] text-[var(--landing-text)]">ProofKits</span>
+              <span className="font-display text-lg sm:text-xl font-bold tracking-[-0.02em] text-[var(--landing-text)]">ProofKits</span>
             </Link>
             <div className="hidden items-center gap-7 lg:flex">
               <Link href="#workflow" className="text-sm font-semibold text-[var(--landing-muted)] transition-colors hover:text-[var(--landing-accent)]">
@@ -245,16 +245,17 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <ThemeToggle className="border-[var(--app-border)] bg-[var(--landing-panel)] text-[var(--landing-text)] hover:bg-[var(--landing-panel-muted)]" />
             <Link href="/login" className="hidden text-sm font-semibold text-[var(--landing-muted)] transition-colors hover:text-[var(--landing-accent)] sm:block">
               Sign In
             </Link>
             <Link
               href="/signup"
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 px-4 py-2 text-sm font-semibold text-white shadow-[0_16px_38px_rgba(91,61,245,0.34)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_46px_rgba(14,165,233,0.35)] sm:px-5 sm:py-2.5"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 px-3.5 py-2 text-xs sm:text-sm font-semibold text-white shadow-[0_16px_38px_rgba(91,61,245,0.34)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_46px_rgba(14,165,233,0.35)] sm:px-5 sm:py-2.5"
             >
-              Start Free Trial
+              <span className="sm:hidden">Get Started</span>
+              <span className="hidden sm:inline">Start Free Trial</span>
             </Link>
           </div>
         </nav>
@@ -486,23 +487,23 @@ export default function HomePage() {
               </div>
             </article>
 
-            <article className="rounded-3xl border border-violet-400/40 bg-gradient-to-br from-violet-500/20 via-indigo-500/14 to-cyan-500/20 p-7 shadow-[0_20px_55px_rgba(73,52,190,0.24)] sm:p-8">
-              <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-violet-300/35 bg-violet-500/18 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-violet-100">
+            <article className="rounded-3xl border border-violet-400/40 bg-gradient-to-br from-violet-600 via-indigo-600 to-cyan-600 p-7 shadow-[0_20px_55px_rgba(73,52,190,0.24)] sm:p-8">
+              <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white">
                 <Orbit className="h-3.5 w-3.5" />
                 Team Story
               </p>
               <h3 className="font-display text-3xl font-bold tracking-[-0.03em] text-white">Built for teams that care about both polish and proof integrity.</h3>
-              <p className="mt-4 text-sm leading-7 text-white/85">
+              <p className="mt-4 text-sm leading-7 text-white/90">
                 ProofKits blends conversion-focused design with approval-safe workflows so every customer voice can be
                 trusted by marketing, legal, and revenue teams.
               </p>
 
-              <div className="mt-6 rounded-2xl border border-white/20 bg-slate-950/30 p-5">
+              <div className="mt-6 rounded-2xl border border-white/20 bg-slate-900/60 p-5">
                 <p className="flex items-center gap-2 text-sm font-semibold text-cyan-200">
                   <Lock className="h-4 w-4" />
                   Security and governance baseline
                 </p>
-                <ul className="mt-3 space-y-2 text-sm text-slate-100/90">
+                <ul className="mt-3 space-y-2 text-sm text-white/90">
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-emerald-300" />
                     Role-based access and approval ownership
