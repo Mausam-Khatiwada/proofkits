@@ -67,7 +67,7 @@ export function WidgetDetail({ widget, testimonials }: WidgetDetailProps) {
   return (
     <>
       {/* Sticky header */}
-      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] px-8 flex items-center justify-between">
+      <header className="sticky top-0 z-30 h-auto min-h-[4rem] bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] pl-14 pr-4 md:px-8 flex flex-wrap items-center justify-between gap-2 py-2">
         <div className="flex items-center gap-4">
           <button
             type="button"
@@ -86,14 +86,15 @@ export function WidgetDetail({ widget, testimonials }: WidgetDetailProps) {
         <button
           type="button"
           onClick={deleteWidget}
-          className="px-4 py-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl text-sm font-medium transition-colors flex items-center gap-2"
+          className="px-3 py-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl text-sm font-medium transition-colors flex items-center gap-2 flex-shrink-0"
         >
           <Trash2 className="w-3.5 h-3.5" />
-          Delete Widget
+          <span className="hidden sm:inline">Delete Widget</span>
+          <span className="sm:hidden">Delete</span>
         </button>
       </header>
 
-      <div className="px-8 py-6">
+      <div className="px-4 py-6 md:px-8">
         {/* Collection URL + Embed Code */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-6">
           <div className="bg-white rounded-2xl border border-[#EDE9FE] p-5 shadow-[0_1px_3px_rgba(124,58,237,0.06)]">
@@ -157,7 +158,7 @@ export function WidgetDetail({ widget, testimonials }: WidgetDetailProps) {
 
         {/* Filter + Testimonials */}
         <div className="bg-white rounded-2xl border border-[#EDE9FE] overflow-hidden shadow-[0_1px_3px_rgba(124,58,237,0.06)]">
-          <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+          <div className="px-4 py-4 md:px-6 border-b border-gray-50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
             <h2 className="text-sm font-semibold text-gray-800">
               Testimonials ({filtered.length})
             </h2>
@@ -188,7 +189,7 @@ export function WidgetDetail({ widget, testimonials }: WidgetDetailProps) {
               {filtered.map((t) => (
                 <div
                   key={t.id}
-                  className="px-6 py-4 flex items-start gap-4 hover:bg-violet-50/30 transition-colors group"
+                  className="px-4 py-4 md:px-6 flex flex-col sm:flex-row items-start gap-4 hover:bg-violet-50/30 transition-colors group"
                 >
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0 ${getAvatarColor(
@@ -217,7 +218,7 @@ export function WidgetDetail({ widget, testimonials }: WidgetDetailProps) {
                       {timeAgo(t.created_at)}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 flex-shrink-0">
+                  <div className="flex items-center gap-2 flex-shrink-0 sm:ml-0 ml-0">
                     <button
                       type="button"
                       onClick={() => toggleApprove(t.id)}
@@ -233,7 +234,7 @@ export function WidgetDetail({ widget, testimonials }: WidgetDetailProps) {
                     <button
                       type="button"
                       onClick={() => deleteTestimonial(t.id)}
-                      className="p-2 rounded-lg text-gray-300 hover:text-red-500 hover:bg-red-50 transition-colors opacity-0 group-hover:opacity-100"
+                      className="p-2 rounded-lg text-gray-300 hover:text-red-500 hover:bg-red-50 transition-colors sm:opacity-0 group-hover:opacity-100"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>

@@ -16,10 +16,10 @@ export function ComingSoon({
 }: ComingSoonProps) {
   return (
     <>
-      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] px-8 flex items-center">
+      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] pl-14 pr-4 md:px-8 flex items-center">
         <h1 className="text-lg font-semibold text-gray-900">{title}</h1>
       </header>
-      <div className="px-8 py-6 flex items-center justify-center min-h-[calc(100vh-4rem)]">
+      <div className="px-4 py-6 md:px-8 flex items-center justify-center min-h-[calc(100vh-4rem)]">
         <div className="text-center max-w-md">
           <div className="w-16 h-16 rounded-2xl bg-violet-100 flex items-center justify-center mx-auto mb-4">
             <Icon className="w-8 h-8 text-violet-500" />
