@@ -1,6 +1,7 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { AlertCircle, CheckCircle2, Loader2, Mail, ShieldCheck } from 'lucide-react';
@@ -9,7 +10,7 @@ import { forgotPasswordSchema, zodFieldErrors } from '@/lib/auth/validation';
 import { absoluteUrl } from '@/lib/seo';
 import { createClient } from '@/lib/supabase/client';
 
-export default function ForgotPasswordPage() {
+function ForgotPasswordContent() {
   const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -198,5 +199,13 @@ export default function ForgotPasswordPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function ForgotPasswordPage() {
+  return (
+    <Suspense>
+      <ForgotPasswordContent />
+    </Suspense>
   );
 }
