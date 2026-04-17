@@ -1,4 +1,4 @@
-# ProofEngine - Setup Guide
+# Proofengine - Setup Guide
 
 ## Prerequisites
 

@@ -166,22 +166,19 @@ function SignupContent() {
       </div>
 
       <header className="relative z-50 border-b border-slate-200 dark:border-white/[0.06]">
-        <nav
-          className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8"
-          aria-label="Main"
-        >
-          <Link href="/" className="group flex items-center gap-2.5">
+        <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-8" aria-label="Main">
+          <Link href="/" className="group flex items-center gap-2 sm:gap-2.5">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-purple-500 shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-transform duration-300 group-hover:scale-105">
               <span className="text-sm font-bold leading-none text-white">P</span>
             </div>
-            <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofEngine</span>
+            <span className="text-base font-bold tracking-tight text-slate-900 dark:text-white sm:text-lg">Proofengine</span>
           </Link>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <ThemeToggle />
             <Link
               href="/login"
-              className="inline-flex items-center gap-1 rounded-full border border-slate-200 px-5 py-2 text-sm font-medium text-slate-600 transition-all hover:bg-slate-50 hover:text-slate-900 dark:border-white/12 dark:text-white/80 dark:hover:border-white/20 dark:hover:text-white"
+              className="inline-flex items-center gap-1 rounded-full border border-slate-200 px-3.5 py-2 text-sm font-medium text-slate-600 transition-all hover:bg-slate-50 hover:text-slate-900 dark:border-white/12 dark:text-white/80 dark:hover:border-white/20 dark:hover:text-white sm:px-5"
             >
               Sign in
             </Link>
@@ -189,14 +186,14 @@ function SignupContent() {
         </nav>
       </header>
 
-      <main className="landing-fade-in flex flex-1 items-center justify-center px-4 py-12 sm:px-6">
-        <div className="w-full max-w-2xl rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-xl backdrop-blur-xl dark:border-white/[0.07] dark:bg-[#16132e]/85 dark:shadow-[0_24px_70px_rgba(88,28,135,0.35)] sm:p-8">
+      <main className="landing-fade-in flex flex-1 items-start justify-center px-4 py-8 sm:items-center sm:py-12 sm:px-6">
+        <div className="w-full max-w-2xl rounded-3xl border border-slate-200 bg-white/90 p-5 shadow-xl backdrop-blur-xl dark:border-white/[0.07] dark:bg-[#16132e]/85 dark:shadow-[0_24px_70px_rgba(88,28,135,0.35)] sm:p-8">
           <div className="mb-6 space-y-2">
             <p className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-violet-600 dark:border-white/10 dark:bg-white/[0.04] dark:text-violet-300">
               <ShieldCheck className="h-3.5 w-3.5" />
               Production-Grade Signup
             </p>
-            <h1 className="font-display text-3xl font-bold tracking-[-0.03em] text-slate-900 dark:text-white">
+            <h1 className="font-display text-[1.85rem] font-bold tracking-[-0.03em] text-slate-900 dark:text-white sm:text-3xl">
               Create your secure workspace
             </h1>
             <p className="text-sm leading-6 text-slate-600 dark:text-white/50">
@@ -213,7 +210,7 @@ function SignupContent() {
             </div>
           ) : null}
 
-          <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5" noValidate>
             {serverError && (
               <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">
                 <div className="flex items-start gap-2">
@@ -232,7 +229,7 @@ function SignupContent() {
               </div>
             )}
 
-            <div className="grid gap-5 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
               <div className="sm:col-span-2">
                 <label htmlFor="fullName" className="mb-1.5 block text-xs font-medium text-slate-600 dark:text-white/60">
                   Full name
@@ -371,7 +368,7 @@ function SignupContent() {
               </div>
             </div>
 
-            <div className="space-y-2 pt-2">
+            <div className="space-y-2 pt-1 sm:pt-2">
               <label className="inline-flex items-start gap-2 text-sm text-slate-600 dark:text-white/60">
                 <input
                   type="checkbox"
@@ -454,7 +451,7 @@ function SignupContent() {
             </button>
           </form>
 
-          <div className="mt-8 text-sm text-slate-500 dark:text-white/50 text-center">
+          <div className="mt-7 text-center text-sm text-slate-500 dark:text-white/50 sm:mt-8">
             Already have an account?{' '}
             <Link href={`/login?next=${encodeURIComponent(nextPath)}`} className="font-semibold text-violet-600 hover:text-violet-500 dark:text-violet-300 dark:hover:text-violet-200 transition-colors">
               Sign in

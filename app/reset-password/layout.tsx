@@ -3,7 +3,7 @@ import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Reset Password',
-  description: 'Set a new password securely for your ProofEngine account.',
+  description: 'Set a new password securely for your Proofengine account.',
   path: '/reset-password',
   index: false,
 });

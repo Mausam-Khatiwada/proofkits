@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 const DEFAULT_SITE_URL = 'https://proofengine.app';
 
-export const SITE_NAME = 'ProofEngine';
+export const SITE_NAME = 'Proofengine';
 export const SITE_TAGLINE = 'AI Testimonial Platform for SaaS Teams';
 export const SITE_DESCRIPTION =
   'Collect, verify, and publish high-converting customer testimonials with AI-powered workflows and premium embeds.';

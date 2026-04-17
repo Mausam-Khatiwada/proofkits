@@ -6,7 +6,7 @@
 
   var slug = scriptTag.getAttribute('data-widget-slug');
   if (!slug) {
-    console.error('ProofEngine: Missing data-widget-slug attribute');
+    console.error('Proofengine: Missing data-widget-slug attribute');
     return;
   }
 
@@ -194,7 +194,7 @@
       trackHtml += '</div>';
 
       if (widget.show_badge) {
-        trackHtml += '<div class="pk-badge"><a href="https://proofengine.io" target="_blank" rel="noopener">Powered by ProofEngine</a></div>';
+        trackHtml += '<div class="pk-badge"><a href="https://proofengine.io" target="_blank" rel="noopener">Powered by Proofengine</a></div>';
       }
 
       container.innerHTML = trackHtml;
@@ -218,6 +218,6 @@
       }, 4000);
     })
     .catch(function (err) {
-      console.error('ProofEngine: Failed to load testimonials', err);
+      console.error('Proofengine: Failed to load testimonials', err);
     });
 })();

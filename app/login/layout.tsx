@@ -3,7 +3,7 @@ import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Sign In',
-  description: 'Sign in to your ProofEngine workspace.',
+  description: 'Sign in to your Proofengine workspace.',
   path: '/login',
   index: false,
 });

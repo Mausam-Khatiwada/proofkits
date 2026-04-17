@@ -20,7 +20,7 @@ export async function generateMetadata({
   const { slug } = await params;
   return pageMetadata({
     title: 'Collect Testimonial',
-    description: 'Submit a customer testimonial securely via ProofEngine.',
+    description: 'Submit a customer testimonial securely via Proofengine.',
     path: `/collect/${slug}`,
     index: false,
   });
@@ -62,7 +62,7 @@ export default async function CollectPage({
         <p className="text-center text-slate-600 text-xs mt-8">
           Powered by{' '}
           <Link href="/" className="text-slate-500 hover:text-violet-400 transition-colors">
-            ProofEngine
+            Proofengine
           </Link>
         </p>
       </div>

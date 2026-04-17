@@ -22,7 +22,7 @@ const heroCards = [
     gradient: '',
     badge: null,
     content: {
-      title: 'ProofEngine helped us increase our conversion rate by 35%',
+      title: 'Proofengine helped us increase our conversion rate by 35%',
       author: 'Andrew Clarke',
       authorInitials: 'AC',
       tag: 'verified',
@@ -38,7 +38,7 @@ const heroCards = [
     content: {
       tag: 'Sentence Boost',
       quote:
-        'ProofEngine helped us increase our proof-our fever-a-est lat conesttimonials. "35%"',
+        'Proofengine helped us increase our proof-our fever-a-est lat conesttimonials. "35%"',
       stars: 5,
       author: 'Commerce Event',
     },
@@ -165,7 +165,7 @@ export function HeroScene() {
       >
         <div className="rounded-2xl border border-white/10 bg-[#16132e]/85 p-5 shadow-[0_20px_60px_rgba(88,28,135,0.3)] backdrop-blur-xl">
           <p className="text-sm font-semibold leading-6 text-white">
-            ProofEngine helped us increase our conversion rate by <span className="text-violet-300">35%</span>
+            Proofengine helped us increase our conversion rate by <span className="text-violet-300">35%</span>
           </p>
           <div className="mt-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -200,7 +200,7 @@ export function HeroScene() {
               Sentence Boost
             </div>
             <p className="text-sm leading-6 text-white/85">
-              &ldquo;ProofEngine helped us increase our proof-
+              &ldquo;Proofengine helped us increase our proof-
               <br />
               our fever-a-est lat conesttimonials. &ldquo;35%&rdquo;
             </p>
@@ -232,7 +232,7 @@ export function HeroSceneMobile() {
           <span className="text-xs font-semibold text-emerald-300">Conversion Boost</span>
         </div>
         <p className="text-sm font-semibold leading-6 text-white">
-          ProofEngine helped us increase our conversion rate by <span className="text-violet-300">35%</span>
+          Proofengine helped us increase our conversion rate by <span className="text-violet-300">35%</span>
         </p>
         <div className="mt-3 flex items-center gap-0.5">
           {[1, 2, 3, 4, 5].map((i) => (

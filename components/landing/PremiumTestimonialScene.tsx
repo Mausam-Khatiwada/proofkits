@@ -26,7 +26,7 @@ const cards: SceneCard[] = [
     id: '1',
     tab: 'tab 01',
     tag: 'Marketing lead',
-    quote: 'We replaced static screenshots with ProofEngine widgets and instantly made our landing page feel alive.',
+    quote: 'We replaced static screenshots with Proofengine widgets and instantly made our landing page feel alive.',
     name: 'Emma Lawson',
     role: 'Growth Lead, StellarOS',
     initials: 'EL',
@@ -43,7 +43,7 @@ const cards: SceneCard[] = [
     tab: 'tab 02',
     tag: 'Founder',
     quote:
-      'ProofEngine turned social proof into our highest-performing trust layer. The workflow and polish feel enterprise-grade.',
+      'Proofengine turned social proof into our highest-performing trust layer. The workflow and polish feel enterprise-grade.',
     name: 'Mausam Khatiwada',
     role: 'Founder, TechFlow',
     initials: 'MK',
