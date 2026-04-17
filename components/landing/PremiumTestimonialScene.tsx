@@ -96,7 +96,7 @@ export function PremiumTestimonialScene() {
   const [sceneHover, setSceneHover] = useState(false);
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
   const pointerTarget = useRef({ x: 0, y: 0 });
-  const hoverTimeoutRef = useRef<ReturnType<typeof window.setTimeout> | null>(null);
+  const hoverTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     let frame = 0;
