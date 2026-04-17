@@ -110,7 +110,7 @@ export function Sidebar({ email, plan, fullName, pendingCount }: SidebarProps) {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-cyan-600 flex items-center justify-center">
               <span className="text-white font-bold text-sm">P</span>
             </div>
-            <span className="font-semibold text-base text-[var(--dash-sidebar-title)]">ProofKits</span>
+            <span className="font-semibold text-base text-[var(--dash-sidebar-title)]">ProofEngine</span>
           </Link>
           <button onClick={() => setIsOpen(false)} className="md:hidden text-[var(--dash-sidebar-label)] hover:text-[var(--dash-text)]">
             <X className="w-5 h-5" />

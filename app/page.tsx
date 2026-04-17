@@ -18,7 +18,7 @@ const caseStudies = [
     avatar: 'EN',
     avatarGrad: 'from-green-400 to-emerald-500',
     quote:
-      '"ProofKit helped us close 35% more deals bas seems by showcasing authentic social proof at key points."',
+      '"ProofEngine helped us close 35% more deals bas seems by showcasing authentic social proof at key points."',
     tag: 'Conversion Boost',
     tagColor: 'text-rose-400',
     tagIcon: '+',
@@ -33,7 +33,7 @@ const caseStudies = [
     avatar: 'FM',
     avatarGrad: 'from-blue-400 to-indigo-500',
     quote:
-      '"Our lead quality improved significantly after they started using ProofKit to highlight customer accesses stories."',
+      '"Our lead quality improved significantly after they started using ProofEngine to highlight customer accesses stories."',
     tag: 'Enterprise Sales',
     tagColor: 'text-blue-400',
     tagIcon: '▲',
@@ -48,7 +48,7 @@ const caseStudies = [
     avatar: 'GN',
     avatarGrad: 'from-orange-400 to-amber-500',
     quote:
-      '"ProofKit made it easy to gather, approve and deploy brevetial testimonials at each boosting our that be paid conversions."',
+      '"ProofEngine made it easy to gather, approve and deploy brevetial testimonials at each boosting our that be paid conversions."',
     tag: 'Trial Conversions',
     tagColor: 'text-violet-400',
     tagIcon: '×',
@@ -60,7 +60,7 @@ const caseStudies = [
 export const metadata: Metadata = pageMetadata({
   title: 'AI Testimonials and Social Proof Platform',
   description:
-    'ProofKit helps SaaS teams collect, verify, and publish customer testimonials with AI workflows, premium embeds, and conversion analytics.',
+    'ProofEngine helps SaaS teams collect, verify, and publish customer testimonials with AI workflows, premium embeds, and conversion analytics.',
   path: '/',
 });
 
@@ -70,12 +70,12 @@ export default function HomePage() {
     '@graph': [
       {
         '@type': 'Organization',
-        name: 'ProofKit',
+        name: 'ProofEngine',
         url: siteUrl,
       },
       {
         '@type': 'SoftwareApplication',
-        name: 'ProofKit',
+        name: 'ProofEngine',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         offers: {
@@ -94,7 +94,7 @@ export default function HomePage() {
 
   return (
     <div className="bg-slate-50 text-slate-900 transition-colors duration-500 dark:bg-[#08070e] dark:text-white relative min-h-screen overflow-x-hidden">
-      <Script id="proofkit-jsonld" type="application/ld+json" strategy="afterInteractive">
+      <Script id="proofengine-jsonld" type="application/ld+json" strategy="afterInteractive">
         {JSON.stringify(jsonLd)}
       </Script>
 
@@ -126,7 +126,7 @@ export default function HomePage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-purple-500 shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-transform duration-300 group-hover:scale-105">
               <span className="text-sm font-bold leading-none text-white">P</span>
             </div>
-            <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofKit</span>
+            <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofEngine</span>
           </Link>
 
           {/* Center links */}
@@ -176,7 +176,7 @@ export default function HomePage() {
             HERO SECTION
         ═══════════════════════════════════════════════════════ */}
         <section className="relative mx-auto max-w-7xl px-5 pb-20 pt-14 sm:px-8 sm:pt-20 lg:pt-24">
-          <div className="grid items-start gap-8 lg:grid-cols-[1fr_1fr] lg:gap-4">
+          <div className="grid items-start gap-8 lg:grid-cols-[1fr_1.08fr] lg:gap-2">
             {/* Left column */}
             <div className="landing-fade-in relative z-10">
               <h1 className="font-display text-[2.6rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-slate-900 dark:text-white sm:text-[3.4rem] lg:text-[3.8rem]">
@@ -214,7 +214,10 @@ export default function HomePage() {
             </div>
 
             {/* Right column — floating cards scene */}
-            <div className="landing-fade-in relative min-h-[22rem] lg:min-h-[26rem]" style={{ animationDelay: '200ms' }}>
+            <div
+              className="landing-fade-in relative min-h-[22rem] lg:-ml-6 lg:-mt-8 lg:min-h-[28rem] xl:-ml-10 xl:-mt-10"
+              style={{ animationDelay: '200ms' }}
+            >
               <PremiumTestimonialScene />
             </div>
           </div>
@@ -303,7 +306,7 @@ export default function HomePage() {
               The complete social proof engine for modern SaaS.
             </h2>
             <p className="mt-5 text-base leading-7 text-slate-600 dark:text-white/50 sm:text-lg">
-              ProofKit goes beyond basic review widgets. Our AI-powered testimonials platform integrates directly into your revenue loops, giving you everything needed to scale social proof without writing code.
+              ProofEngine goes beyond basic review widgets. Our AI-powered testimonials platform integrates directly into your revenue loops, giving you everything needed to scale social proof without writing code.
             </p>
           </div>
 
@@ -327,7 +330,7 @@ export default function HomePage() {
               {
                 icon: Shield,
                 title: 'Verified Auth & Trust',
-                desc: 'Build absolute trust with verified customer badges. ProofKit securely authenticates identities to prevent fake reviews and boost credibility.',
+                desc: 'Build absolute trust with verified customer badges. ProofEngine securely authenticates identities to prevent fake reviews and boost credibility.',
               },
               {
                 icon: MessageSquare,
@@ -363,7 +366,7 @@ export default function HomePage() {
           <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
             <div>
               <h2 className="font-display text-3xl font-bold tracking-[-0.03em] text-slate-900 dark:text-white sm:text-[2.5rem] sm:leading-[1.12]">
-                How ProofKit scales your customer trust.
+                How ProofEngine scales your customer trust.
               </h2>
               <p className="mt-5 text-base leading-7 text-slate-600 dark:text-white/50">
                 A seamless workflow designed for B2B and SaaS platforms to frictionlessly gather and deploy customer success stories.
@@ -457,15 +460,15 @@ export default function HomePage() {
               Frequently asked questions
             </h2>
             <p className="mt-4 text-base text-slate-600 dark:text-white/50">
-              Everything you need to know about ProofKit and social proof infrastructure.
+              Everything you need to know about ProofEngine and social proof infrastructure.
             </p>
            </div>
 
            <div className="space-y-4">
               {[
                 {
-                  q: 'What makes ProofKit different from other testimonial platforms?',
-                  a: 'ProofKit is designed explicitly for modern SaaS teams. We provide an end-to-end infrastructure that not only collects text and video testimonials but utilizes AI to help customers write high-converting copy. We also provide native Next.js and React components for seamless, unbranded embedding that looks native to your site.'
+                  q: 'What makes ProofEngine different from other testimonial platforms?',
+                  a: 'ProofEngine is designed explicitly for modern SaaS teams. We provide an end-to-end infrastructure that not only collects text and video testimonials but utilizes AI to help customers write high-converting copy. We also provide native Next.js and React components for seamless, unbranded embedding that looks native to your site.'
                 },
                 {
                   q: 'Are the embedded widgets SEO friendly?',
@@ -473,7 +476,7 @@ export default function HomePage() {
                 },
                 {
                   q: 'Can I integrate this with my existing SaaS auth?',
-                  a: 'Absolutely. ProofKit offers robust APIs allowing you to pass metadata seamlessly. You can automatically attribute testimonials to verified users in your database, adding a "Verified User" trust badge to their reviews.'
+                  a: 'Absolutely. ProofEngine offers robust APIs allowing you to pass metadata seamlessly. You can automatically attribute testimonials to verified users in your database, adding a "Verified User" trust badge to their reviews.'
                 },
                 {
                   q: 'Is there a free tier for early startups?',
@@ -525,7 +528,7 @@ export default function HomePage() {
       <footer className="border-t border-slate-200 dark:border-white/[0.06]">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofKit</p>
+            <p className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofEngine</p>
             <p className="mt-1 text-sm text-slate-500 dark:text-white/35">
               Proof infrastructure for modern SaaS teams.
             </p>
@@ -550,7 +553,7 @@ export default function HomePage() {
           </div>
 
           <p className="text-sm text-white/30">
-            &copy; {new Date().getFullYear()} ProofKit. All rights reserved.
+            &copy; {new Date().getFullYear()} ProofEngine. All rights reserved.
           </p>
         </div>
       </footer>

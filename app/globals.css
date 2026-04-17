@@ -185,7 +185,7 @@ body {
 }
 
 html.theme-animating body {
-  transition: background 1280ms ease, color 1280ms ease;
+  transition: background 1800ms ease, color 1800ms ease;
 }
 
 html.theme-animating .dashboard-theme,
@@ -193,10 +193,10 @@ html.theme-animating [class*="bg-"],
 html.theme-animating [class*="text-"],
 html.theme-animating [class*="border-"] {
   transition:
-    background-color 1280ms ease,
-    color 1280ms ease,
-    border-color 1280ms ease,
-    box-shadow 1280ms ease;
+    background-color 1800ms ease,
+    color 1800ms ease,
+    border-color 1800ms ease,
+    box-shadow 1800ms ease;
 }
 
 .theme-toggle-switching {
@@ -248,7 +248,7 @@ html.theme-animating [class*="border-"] {
 
   ::view-transition-old(root),
   ::view-transition-new(root) {
-    animation-duration: 1560ms;
+    animation-duration: 1800ms;
     animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
@@ -258,7 +258,7 @@ html.theme-animating [class*="border-"] {
 
   ::view-transition-new(root) {
     animation-name: theme-new-reveal;
-    clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 50%));
+    clip-path: inset(0 0 100% 0);
   }
 }
 
@@ -275,14 +275,14 @@ html.theme-animating [class*="border-"] {
 
 @keyframes theme-new-reveal {
   0% {
-    clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 50%));
+    clip-path: inset(0 0 100% 0);
     opacity: 0.7;
   }
   60% {
     opacity: 1;
   }
   100% {
-    clip-path: circle(150vmax at var(--vt-x, 50%) var(--vt-y, 50%));
+    clip-path: inset(0 0 0 0);
     opacity: 1;
   }
 }

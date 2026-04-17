@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 
-const DEFAULT_SITE_URL = 'https://proofkit.app';
+const DEFAULT_SITE_URL = 'https://proofengine.app';
 
-export const SITE_NAME = 'ProofKits';
+export const SITE_NAME = 'ProofEngine';
 export const SITE_TAGLINE = 'AI Testimonial Platform for SaaS Teams';
 export const SITE_DESCRIPTION =
   'Collect, verify, and publish high-converting customer testimonials with AI-powered workflows and premium embeds.';
-export const SITE_TWITTER_HANDLE = '@proofkit';
+export const SITE_TWITTER_HANDLE = '@proofengine';
 
 export const PUBLIC_ROBOTS: NonNullable<Metadata['robots']> = {
   index: true,

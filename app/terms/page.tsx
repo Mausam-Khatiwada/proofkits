@@ -6,14 +6,14 @@ import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Terms of Service',
-  description: 'Terms governing your use of ProofKit.',
+  description: 'Terms governing your use of ProofEngine.',
   path: '/terms',
 });
 
 const terms = [
   {
     title: 'Service usage',
-    body: 'By using ProofKit, you agree to use the platform only for lawful business purposes and in accordance with your customer commitments.',
+    body: 'By using ProofEngine, you agree to use the platform only for lawful business purposes and in accordance with your customer commitments.',
   },
   {
     title: 'Account responsibility',
@@ -29,11 +29,11 @@ const terms = [
   },
   {
     title: 'Availability and changes',
-    body: 'We continuously improve ProofKit and may update features, limits, or functionality while maintaining core service commitments.',
+    body: 'We continuously improve ProofEngine and may update features, limits, or functionality while maintaining core service commitments.',
   },
   {
     title: 'Contact',
-    body: 'For contract or legal questions, contact legal@proofkit.app.',
+    body: 'For contract or legal questions, contact legal@proofengine.app.',
   },
 ];
 
@@ -57,7 +57,7 @@ export default function TermsPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-purple-500 shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-transform duration-300 group-hover:scale-105">
               <span className="text-sm font-bold leading-none text-white">P</span>
             </div>
-            <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofKit</span>
+            <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofEngine</span>
           </Link>
 
           <div className="hidden items-center gap-8 lg:flex">
@@ -100,7 +100,7 @@ export default function TermsPage() {
           Terms of Service
         </h1>
         <p className="mt-6 text-base leading-7 text-slate-600 dark:text-white/50">
-          Effective date: April 15, 2026. These terms describe how ProofKit services are provided and used.
+          Effective date: April 15, 2026. These terms describe how ProofEngine services are provided and used.
         </p>
 
         <div className="mt-12 space-y-6">
@@ -116,7 +116,7 @@ export default function TermsPage() {
       <footer className="border-t border-slate-200 mt-20 dark:border-white/[0.06]">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofKit</p>
+            <p className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofEngine</p>
             <p className="mt-1 text-sm text-slate-500 dark:text-white/35">
               Proof infrastructure for modern SaaS teams.
             </p>
@@ -141,7 +141,7 @@ export default function TermsPage() {
           </div>
 
           <p className="text-sm text-slate-400 dark:text-white/30">
-            &copy; {new Date().getFullYear()} ProofKit. All rights reserved.
+            &copy; {new Date().getFullYear()} ProofEngine. All rights reserved.
           </p>
         </div>
       </footer>

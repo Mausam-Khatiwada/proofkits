@@ -119,7 +119,7 @@ export async function POST(
 
       const resend = new Resend(process.env.RESEND_API_KEY);
       await resend.emails.send({
-        from: 'ProofKits <notifications@proofkit.io>',
+        from: 'ProofEngine <notifications@proofengine.io>',
         to: owner.email,
         subject: `New testimonial submitted for "${safeWidgetName}"`,
         html: `

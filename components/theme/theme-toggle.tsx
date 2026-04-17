@@ -9,7 +9,7 @@ type ThemeName = 'light' | 'dark';
 function withFallbackAnimation(fn: () => void) {
   const root = document.documentElement;
   root.classList.add('theme-animating');
-  window.setTimeout(() => root.classList.remove('theme-animating'), 1320);
+  window.setTimeout(() => root.classList.remove('theme-animating'), 1840);
   fn();
 }
 
@@ -33,17 +33,18 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
     <button
       type="button"
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-      className={`group inline-flex items-center justify-center rounded-full border px-3.5 py-2 text-sm font-semibold backdrop-blur-md transition-[transform,background-color,color,border-color,box-shadow] duration-500 active:scale-[0.98] ${
+      className={`group relative inline-flex items-center justify-center rounded-full border px-2 py-1.5 text-sm font-semibold backdrop-blur-xl transition-[transform,background-color,color,border-color,box-shadow] duration-200 active:scale-[0.98] ${
         isSwitching ? 'theme-toggle-switching' : ''
+      } ${
+        isDark
+          ? 'border-white/15 bg-white/[0.06] text-white shadow-[0_8px_30px_rgba(15,23,42,0.45)] hover:border-white/25 hover:bg-white/[0.11]'
+          : 'border-slate-300/80 bg-white/90 text-slate-700 shadow-[0_8px_20px_rgba(15,23,42,0.08)] hover:border-slate-400/80 hover:bg-white'
       } ${className}`}
       onClick={(e) => {
         if (isSwitching) return;
 
         setIsSwitching(true);
         const root = document.documentElement;
-        root.style.setProperty('--vt-x', `${e.clientX}px`);
-        root.style.setProperty('--vt-y', `${e.clientY}px`);
-
         const apply = () => setTheme(nextTheme);
 
         const startViewTransition: undefined | ((cb: () => void) => { ready: Promise<void>; finished: Promise<void> }) = (
@@ -59,17 +60,22 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
         }
 
         withFallbackAnimation(apply);
-        window.setTimeout(() => setIsSwitching(false), 1360);
+        window.setTimeout(() => setIsSwitching(false), 1860);
       }}
     >
-      <span className="relative flex items-center gap-2">
+      <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-inset ring-white/10 dark:ring-white/5" aria-hidden="true" />
+      <span className="relative flex items-center gap-1.5 px-0.5">
         <span
-          className="theme-toggle-icon inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 ring-1 ring-slate-300 transition dark:bg-white/10 dark:ring-white/10"
+          className={`theme-toggle-icon inline-flex h-7 w-7 items-center justify-center rounded-full transition-transform duration-200 ${
+            isDark
+              ? 'bg-white/12 text-amber-200 ring-1 ring-white/20'
+              : 'bg-slate-100 text-slate-700 ring-1 ring-slate-300/80'
+          }`}
           aria-hidden="true"
         >
-          {isDark ? <Sun className="h-4 w-4 text-amber-200" /> : <Moon className="h-4 w-4 text-slate-700" />}
+          {isDark ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
         </span>
-        <span className="theme-toggle-label hidden sm:inline">{isDark ? 'Light' : 'Dark'}</span>
+        <span className="theme-toggle-label px-1 text-[12px] font-semibold tracking-[0.01em]">{isDark ? 'Light' : 'Dark'}</span>
       </span>
     </button>
   );

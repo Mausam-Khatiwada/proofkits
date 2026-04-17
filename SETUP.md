@@ -1,4 +1,4 @@
-# ProofKits - Setup Guide
+# ProofEngine - Setup Guide
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@
 ## 1. Install
 
 ```bash
-cd proofkit
+cd proofengine
 npm install
 ```
 

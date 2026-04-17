@@ -174,7 +174,7 @@ function SignupContent() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-purple-500 shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-transform duration-300 group-hover:scale-105">
               <span className="text-sm font-bold leading-none text-white">P</span>
             </div>
-            <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofKit</span>
+            <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofEngine</span>
           </Link>
 
           <div className="flex items-center gap-4">

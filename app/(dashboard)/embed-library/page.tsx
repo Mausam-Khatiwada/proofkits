@@ -44,7 +44,7 @@ export default async function EmbedLibraryPage() {
         ) : (
           <div className="space-y-5">
             {(widgets as Widget[]).map((w) => {
-              const embedHTML = `<div id="proofkit-widget"></div>\n<script src="${appUrl}/widget.js" data-widget-slug="${w.slug}"></script>`;
+              const embedHTML = `<div id="proofengine-widget"></div>\n<script src="${appUrl}/widget.js" data-widget-slug="${w.slug}"></script>`;
               const collectURL = `${appUrl}/collect/${w.slug}`;
               const apiURL = `${appUrl}/api/embed/${w.slug}/testimonials`;
 

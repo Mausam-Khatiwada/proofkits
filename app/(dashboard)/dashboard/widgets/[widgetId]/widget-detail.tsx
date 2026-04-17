@@ -30,7 +30,7 @@ export function WidgetDetail({ widget, testimonials }: WidgetDetailProps) {
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
   const collectionUrl = `${appUrl}/collect/${widget.slug}`;
-  const embedCode = `<div id="proofkit-widget"></div>\n<script src="${appUrl}/widget.js" data-widget-slug="${widget.slug}"></script>`;
+  const embedCode = `<div id="proofengine-widget"></div>\n<script src="${appUrl}/widget.js" data-widget-slug="${widget.slug}"></script>`;
 
   const filtered = testimonials.filter((t) => {
     if (filter === 'pending') return !t.approved;

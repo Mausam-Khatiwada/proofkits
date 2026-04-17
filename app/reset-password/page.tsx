@@ -121,7 +121,7 @@ function ResetPasswordContent() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 via-fuchsia-500 to-cyan-500">
               <span className="text-lg font-bold text-white">P</span>
             </div>
-            <span className="font-display text-2xl font-bold">ProofKits</span>
+            <span className="font-display text-2xl font-bold">ProofEngine</span>
           </Link>
           <ThemeToggle className="border-[var(--app-border)] bg-[var(--landing-panel)] text-[var(--landing-text)] hover:bg-[var(--landing-panel-muted)]" />
         </div>

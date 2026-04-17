@@ -173,7 +173,7 @@ export function SettingsContent({ profile }: SettingsContentProps) {
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-violet-500" />
-                    Remove &quot;Powered by ProofKits&quot; badge
+                    Remove &quot;Powered by ProofEngine&quot; badge
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-violet-500" />

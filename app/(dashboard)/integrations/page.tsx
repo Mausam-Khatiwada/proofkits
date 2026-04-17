@@ -6,7 +6,7 @@ export default function IntegrationsPage() {
     <ComingSoon
       icon={Plug}
       title="Integrations"
-      description="Connect ProofKits with your favorite tools and platforms."
+      description="Connect ProofEngine with your favorite tools and platforms."
       features={[
         'Zapier and Make.com webhooks',
         'Slack notifications',

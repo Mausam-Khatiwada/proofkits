@@ -26,7 +26,7 @@ const cards: SceneCard[] = [
     id: '1',
     tab: 'tab 01',
     tag: 'Marketing lead',
-    quote: 'We replaced static screenshots with ProofKits widgets and instantly made our landing page feel alive.',
+    quote: 'We replaced static screenshots with ProofEngine widgets and instantly made our landing page feel alive.',
     name: 'Emma Lawson',
     role: 'Growth Lead, StellarOS',
     initials: 'EL',
@@ -43,7 +43,7 @@ const cards: SceneCard[] = [
     tab: 'tab 02',
     tag: 'Founder',
     quote:
-      'ProofKits turned social proof into our highest-performing trust layer. The workflow and polish feel enterprise-grade.',
+      'ProofEngine turned social proof into our highest-performing trust layer. The workflow and polish feel enterprise-grade.',
     name: 'Mausam Khatiwada',
     role: 'Founder, TechFlow',
     initials: 'MK',
@@ -83,27 +83,11 @@ const cards: SceneCard[] = [
     initials: 'AP',
     gradient: 'from-emerald-400 to-teal-500',
     width: 'w-[17.5rem]',
-    top: 'top-[17.5rem]',
-    left: 'left-[14rem]',
+    top: 'top-[9.5rem]',
+    left: 'left-[12.5rem]',
     rx: -10,
     ry: -14,
     z: -55,
-  },
-  {
-    id: '5',
-    tab: 'tab 05',
-    tag: 'Revenue ops',
-    quote: 'ProofKits gave us a conversion-quality testimonial pipeline, not just a widget.',
-    name: 'Noah Reeves',
-    role: 'RevOps, Scalegrid',
-    initials: 'NR',
-    gradient: 'from-amber-400 to-orange-500',
-    width: 'w-[16rem]',
-    top: 'top-[23rem]',
-    left: 'left-20',
-    rx: -8,
-    ry: 16,
-    z: -90,
   },
 ];
 
@@ -112,6 +96,7 @@ export function PremiumTestimonialScene() {
   const [sceneHover, setSceneHover] = useState(false);
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
   const pointerTarget = useRef({ x: 0, y: 0 });
+  const hoverTimeoutRef = useRef<ReturnType<typeof window.setTimeout> | null>(null);
 
   useEffect(() => {
     let frame = 0;
@@ -139,6 +124,14 @@ export function PremiumTestimonialScene() {
 
     return () => window.clearInterval(interval);
   }, [sceneHover]);
+
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        window.clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const orderedCards = useMemo(() => {
     const maxIndex = cards.length + 12;
@@ -201,17 +194,21 @@ export function PremiumTestimonialScene() {
         ))}
       </div>
 
-      <div className="relative hidden min-h-[41rem] items-start justify-center [perspective:2400px] md:flex lg:justify-end">
+      <div className="relative hidden min-h-[36rem] items-start justify-start [perspective:2400px] md:flex">
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-500/25 blur-[125px] dark:bg-violet-400/24" />
         <div className="pointer-events-none absolute right-16 top-8 h-48 w-48 rounded-full bg-cyan-500/20 blur-[95px] dark:bg-cyan-400/20" />
 
         <div
-          className="group relative h-[39rem] w-full max-w-[38rem] transform-gpu transition-transform duration-500 [transform-style:preserve-3d] will-change-transform"
+          className="group relative h-[32rem] w-full max-w-[33rem] origin-top-left scale-[0.86] transform-gpu transition-transform duration-500 [transform-style:preserve-3d] will-change-transform lg:scale-[0.9] xl:scale-[0.95]"
           style={sceneTilt}
           onMouseEnter={() => setSceneHover(true)}
           onMouseLeave={() => {
             setSceneHover(false);
             pointerTarget.current = { x: 0, y: 0 };
+            if (hoverTimeoutRef.current) {
+              window.clearTimeout(hoverTimeoutRef.current);
+              hoverTimeoutRef.current = null;
+            }
           }}
           onMouseMove={(event) => {
             const rect = event.currentTarget.getBoundingClientRect();
@@ -222,13 +219,13 @@ export function PremiumTestimonialScene() {
         >
           {orderedCards.map((card, index) => {
             const isActive = card.id === activeCard;
-            const depthBoost = isActive ? 260 : sceneHover ? 34 : 10;
+            const depthBoost = isActive ? 150 : sceneHover ? 22 : 8;
             const dynamicZ = card.z + depthBoost;
-            const dynamicRx = card.rx + pointer.y * (isActive ? -10 : -4.8);
-            const dynamicRy = card.ry + pointer.x * (isActive ? 17 : 8);
-            const dynamicScale = isActive ? card.scale ?? 1.08 : sceneHover ? 1.01 : 1;
-            const dynamicX = pointer.x * (isActive ? 20 : 8);
-            const dynamicY = pointer.y * (isActive ? 16 : 6);
+            const dynamicRx = card.rx + pointer.y * (isActive ? -7 : -4);
+            const dynamicRy = card.ry + pointer.x * (isActive ? 12 : 6.5);
+            const dynamicScale = isActive ? card.scale ?? 1.03 : sceneHover ? 1 : 0.99;
+            const dynamicX = pointer.x * (isActive ? 14 : 7);
+            const dynamicY = pointer.y * (isActive ? 12 : 5);
 
             return (
               <div
@@ -241,13 +238,21 @@ export function PremiumTestimonialScene() {
                 }}
               >
                 <article
-                  onMouseEnter={() => setActiveCard(card.id)}
+                  onMouseEnter={() => {
+                    if (activeCard === card.id) return;
+                    if (hoverTimeoutRef.current) {
+                      window.clearTimeout(hoverTimeoutRef.current);
+                    }
+                    hoverTimeoutRef.current = window.setTimeout(() => {
+                      setActiveCard(card.id);
+                    }, 90);
+                  }}
                   className={[
                     'landing-card-glow rounded-[1.35rem] border border-slate-200/90 bg-white p-3 backdrop-blur-2xl dark:border-slate-700/70 dark:bg-[#0b1536]/92',
-                    'transform-gpu transition-[transform,box-shadow,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform',
+                    'transform-gpu transition-[transform,box-shadow,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform',
                     isActive
-                      ? 'opacity-100 shadow-[0_46px_120px_rgba(56,73,112,0.3),0_0_88px_rgba(129,140,248,0.24)] dark:shadow-[0_80px_180px_rgba(8,15,45,0.85),0_0_110px_rgba(109,40,217,0.42)]'
-                      : 'opacity-95 shadow-[0_26px_64px_rgba(56,73,112,0.22)] dark:shadow-[0_30px_72px_rgba(15,23,42,0.46)]',
+                      ? 'opacity-100 shadow-[0_38px_96px_rgba(56,73,112,0.28),0_0_70px_rgba(129,140,248,0.2)] dark:shadow-[0_62px_130px_rgba(8,15,45,0.72),0_0_90px_rgba(109,40,217,0.34)]'
+                      : 'opacity-95 shadow-[0_22px_52px_rgba(56,73,112,0.2)] dark:shadow-[0_24px_56px_rgba(15,23,42,0.42)]',
                   ].join(' ')}
                   style={{
                     transform: `translate3d(${dynamicX}px, ${dynamicY}px, ${dynamicZ}px) rotateX(${dynamicRx}deg) rotateY(${dynamicRy}deg) scale(${dynamicScale})`,

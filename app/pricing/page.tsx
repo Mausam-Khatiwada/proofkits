@@ -28,7 +28,7 @@ const plans = [
 
 export const metadata: Metadata = pageMetadata({
   title: 'Pricing',
-  description: 'Choose the ProofKit plan that fits your team stage, from first launch to scaled social proof operations.',
+  description: 'Choose the ProofEngine plan that fits your team stage, from first launch to scaled social proof operations.',
   path: '/pricing',
 });
 
@@ -52,7 +52,7 @@ export default function PricingPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-purple-500 shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-transform duration-300 group-hover:scale-105">
               <span className="text-sm font-bold leading-none text-white">P</span>
             </div>
-            <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofKit</span>
+            <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofEngine</span>
           </Link>
 
           <div className="hidden items-center gap-8 lg:flex">
@@ -138,7 +138,7 @@ export default function PricingPage() {
           <h2 className="font-display text-2xl font-bold tracking-[-0.02em] text-slate-900 dark:text-white">Need an annual plan or enterprise setup?</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-600 dark:text-white/50">
             We support annual contracts, onboarding sessions, and custom governance requirements for larger teams.
-            Reach out to tailor ProofKit to your stack and rollout plan.
+            Reach out to tailor ProofEngine to your stack and rollout plan.
           </p>
           <Link
             href="/contact"
@@ -153,7 +153,7 @@ export default function PricingPage() {
       <footer className="border-t border-slate-200 mt-20 dark:border-white/[0.06]">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofKit</p>
+            <p className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofEngine</p>
             <p className="mt-1 text-sm text-slate-500 dark:text-white/35">
               Proof infrastructure for modern SaaS teams.
             </p>
@@ -178,7 +178,7 @@ export default function PricingPage() {
           </div>
 
           <p className="text-sm text-white/30">
-            &copy; {new Date().getFullYear()} ProofKit. All rights reserved.
+            &copy; {new Date().getFullYear()} ProofEngine. All rights reserved.
           </p>
         </div>
       </footer>

@@ -13,8 +13,8 @@ import { createClient } from '@/lib/supabase/client';
 
 const MAX_FAILED_ATTEMPTS = 5;
 const LOCKOUT_MS = 30_000;
-const LOCKOUT_STORAGE_KEY = 'proofkit.auth.login.lockout_until';
-const FAILED_ATTEMPTS_STORAGE_KEY = 'proofkit.auth.login.failed_attempts';
+const LOCKOUT_STORAGE_KEY = 'proofengine.auth.login.lockout_until';
+const FAILED_ATTEMPTS_STORAGE_KEY = 'proofengine.auth.login.failed_attempts';
 
 function readStoredNumber(key: string) {
   if (typeof window === 'undefined') return 0;
@@ -257,7 +257,7 @@ function LoginContent() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-purple-500 shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-transform duration-300 group-hover:scale-105">
               <span className="text-sm font-bold leading-none text-white">P</span>
             </div>
-            <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofKit</span>
+            <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofEngine</span>
           </Link>
 
           <div className="flex items-center gap-4">
@@ -429,7 +429,7 @@ function LoginContent() {
               </Link>
             </p>
             <p>
-              New to ProofKit?{' '}
+              New to ProofEngine?{' '}
               <Link href={`/signup?next=${encodeURIComponent(nextPath)}`} className="font-semibold text-violet-600 hover:text-violet-500 dark:text-violet-300 dark:hover:text-violet-200 transition-colors">
                 Create an account
               </Link>

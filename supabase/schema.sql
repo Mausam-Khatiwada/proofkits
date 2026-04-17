@@ -1,5 +1,5 @@
 -- ============================================================
--- ProofKits Supabase Schema
+-- ProofEngine Supabase Schema
 -- ============================================================
 
 -- profiles table (auto-created on auth.users insert via trigger)

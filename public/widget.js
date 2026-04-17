@@ -6,25 +6,25 @@
 
   var slug = scriptTag.getAttribute('data-widget-slug');
   if (!slug) {
-    console.error('ProofKits: Missing data-widget-slug attribute');
+    console.error('ProofEngine: Missing data-widget-slug attribute');
     return;
   }
 
   var baseUrl = scriptTag.src.replace(/\/widget\.js.*$/, '');
 
-  var container = document.getElementById('proofkit-widget');
+  var container = document.getElementById('proofengine-widget');
   if (!container) {
     container = document.createElement('div');
-    container.id = 'proofkit-widget';
+    container.id = 'proofengine-widget';
     scriptTag.parentNode.insertBefore(container, scriptTag);
   }
 
-  var styleId = 'proofkit-styles';
+  var styleId = 'proofengine-styles';
   if (!document.getElementById(styleId)) {
     var style = document.createElement('style');
     style.id = styleId;
     style.textContent = '\n' +
-      '#proofkit-widget {\n' +
+      '#proofengine-widget {\n' +
       '  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;\n' +
       '  position: relative;\n' +
       '  overflow: hidden;\n' +
@@ -194,7 +194,7 @@
       trackHtml += '</div>';
 
       if (widget.show_badge) {
-        trackHtml += '<div class="pk-badge"><a href="https://proofkit.io" target="_blank" rel="noopener">Powered by ProofKits</a></div>';
+        trackHtml += '<div class="pk-badge"><a href="https://proofengine.io" target="_blank" rel="noopener">Powered by ProofEngine</a></div>';
       }
 
       container.innerHTML = trackHtml;
@@ -218,6 +218,6 @@
       }, 4000);
     })
     .catch(function (err) {
-      console.error('ProofKits: Failed to load testimonials', err);
+      console.error('ProofEngine: Failed to load testimonials', err);
     });
 })();

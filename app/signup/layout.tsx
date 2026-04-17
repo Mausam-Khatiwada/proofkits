@@ -3,7 +3,7 @@ import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Sign Up',
-  description: 'Create your ProofKits account and start collecting testimonials.',
+  description: 'Create your ProofEngine account and start collecting testimonials.',
   path: '/signup',
   index: false,
 });

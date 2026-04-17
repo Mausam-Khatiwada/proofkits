@@ -18,7 +18,7 @@ function getClientIp(request: Request): string {
 }
 
 function anonymizeIp(ip: string): string {
-  const salt = process.env.AUDIT_LOG_SALT || 'proofkit-default-audit-salt';
+  const salt = process.env.AUDIT_LOG_SALT || 'proofengine-default-audit-salt';
   return crypto
     .createHash('sha256')
     .update(`${salt}:${ip}`)
