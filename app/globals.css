@@ -5,6 +5,8 @@
   --font-display: var(--font-sora), "Trebuchet MS", sans-serif;
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --app-bg:
     radial-gradient(72rem 52rem at 6% -8%, rgba(14, 165, 233, 0.24), transparent 52%),
@@ -285,6 +287,7 @@ html.theme-animating [class*="border-"] {
   }
 }
 
+/* ── Kept: old landing animations ── */
 .landing-section-reveal {
   animation: landing-section-reveal 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -331,6 +334,117 @@ html.theme-animating [class*="border-"] {
   }
 }
 
+/* ══════════════════════════════════════════════════════════════
+   COSMIC LANDING PAGE STYLES
+   ══════════════════════════════════════════════════════════════ */
+
+/* The cosmic container provides base background colors depending on theme */
+.landing-cosmic {
+  @apply bg-[#f8fafc] text-slate-900 transition-colors duration-500 dark:bg-[#08070e] dark:text-white;
+}
+
+/* ── Star field (Dark mode only) ── */
+.stars-layer {
+  @apply hidden dark:block;
+  background-image:
+    radial-gradient(1.4px 1.4px at 12% 18%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px 1px at 28% 42%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1.2px 1.2px at 45% 8%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(0.8px 0.8px at 62% 35%, rgba(200,210,255,0.5), transparent),
+    radial-gradient(1.5px 1.5px at 78% 22%, rgba(255,255,255,0.65), transparent),
+    radial-gradient(1px 1px at 88% 55%, rgba(200,200,255,0.45), transparent),
+    radial-gradient(0.9px 0.9px at 15% 68%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.3px 1.3px at 35% 78%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 55% 62%, rgba(200,210,255,0.4), transparent),
+    radial-gradient(0.7px 0.7px at 72% 72%, rgba(255,255,255,0.35), transparent),
+    radial-gradient(1.1px 1.1px at 92% 82%, rgba(255,255,255,0.45), transparent),
+    radial-gradient(0.8px 0.8px at 8% 88%, rgba(200,200,255,0.4), transparent),
+    radial-gradient(1px 1px at 48% 92%, rgba(255,255,255,0.35), transparent),
+    radial-gradient(1.2px 1.2px at 82% 12%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(0.6px 0.6px at 22% 52%, rgba(210,190,255,0.4), transparent),
+    radial-gradient(1px 1px at 58% 28%, rgba(255,255,255,0.45), transparent),
+    radial-gradient(0.9px 0.9px at 38% 15%, rgba(180,200,255,0.5), transparent),
+    radial-gradient(1.4px 1.4px at 5% 40%, rgba(255,255,255,0.55), transparent),
+    radial-gradient(0.7px 0.7px at 95% 45%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 68% 85%, rgba(200,210,255,0.35), transparent),
+    radial-gradient(1.3px 1.3px at 42% 48%, rgba(255,255,255,0.3), transparent),
+    radial-gradient(0.8px 0.8px at 18% 32%, rgba(190,200,255,0.45), transparent),
+    radial-gradient(1.1px 1.1px at 75% 58%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 88% 15%, rgba(220,190,255,0.55), transparent),
+    radial-gradient(0.6px 0.6px at 52% 75%, rgba(255,255,255,0.3), transparent);
+  animation: stars-twinkle 8s ease-in-out infinite alternate;
+}
+
+@keyframes stars-twinkle {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.75; }
+}
+
+/* ── Hero floating cards ── */
+.hero-scene-container {
+  min-height: 22rem;
+}
+
+.hero-float-card {
+  animation: hero-float 12s ease-in-out infinite;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes hero-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(0, -10px, 0); }
+  50% { transform: translate3d(0, -4px, 0); }
+  75% { transform: translate3d(0, -12px, 0); }
+}
+
+/* ── SVG connection line glow animation ── */
+.hero-line-anim {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: line-draw 2.5s ease forwards;
+}
+
+@keyframes line-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+.hero-dot-pulse {
+  animation: dot-pulse 3s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.6); }
+}
+
+/* ── Fade-in for sections ── */
+.landing-fade-in {
+  animation: landing-fade-in 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes landing-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Premium Scene CSS ── */
+.landing-card-float {
+  animation: landing-card-float-anim ease-in-out infinite alternate;
+}
+
+@keyframes landing-card-float-anim {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html.theme-animating body {
     transition: none;
@@ -347,6 +461,13 @@ html.theme-animating [class*="border-"] {
   .theme-toggle-switching .theme-toggle-label,
   ::view-transition-old(root),
   ::view-transition-new(root) {
+    animation: none !important;
+  }
+
+  .stars-layer,
+  .hero-float-card,
+  .hero-dot-pulse,
+  .hero-line-anim {
     animation: none !important;
   }
 }

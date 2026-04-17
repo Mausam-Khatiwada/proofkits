@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic';
 import { useEffect, useMemo, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { AlertCircle, Eye, EyeOff, Loader2, Mail, ShieldCheck } from 'lucide-react';
+import { AlertCircle, Eye, EyeOff, Loader2, Mail, ShieldCheck, ChevronDown, ArrowLeft } from 'lucide-react';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { sanitizeNextPath } from '@/lib/auth/navigation';
 import { loginSchema, zodFieldErrors } from '@/lib/auth/validation';
@@ -239,54 +239,74 @@ function LoginContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--app-bg)] text-[var(--landing-text)]">
-      <header className="border-b border-[var(--app-border)] bg-[var(--app-surface)] backdrop-blur-xl">
-        <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="inline-flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 via-fuchsia-500 to-cyan-500">
-              <span className="text-lg font-bold text-white">P</span>
+    <div className="bg-slate-50 text-slate-900 transition-colors duration-500 dark:bg-[#08070e] dark:text-white relative min-h-screen overflow-x-hidden flex flex-col">
+      {/* ── Cosmic background layers ── */}
+      <div className="pointer-events-none fixed inset-0 -z-10 hidden dark:block">
+        <div className="absolute inset-0 bg-[#08070e]" />
+        <div className="stars-layer absolute inset-0" />
+        <div className="absolute -top-[20%] left-[10%] h-[50rem] w-[60rem] rounded-full bg-violet-900/20 blur-[180px]" />
+        <div className="absolute -bottom-[10%] right-[5%] h-[40rem] w-[40rem] rounded-full bg-indigo-900/25 blur-[160px]" />
+      </div>
+
+      <header className="relative z-50 border-b border-slate-200 dark:border-white/[0.06]">
+        <nav
+          className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8"
+          aria-label="Main"
+        >
+          <Link href="/" className="group flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-purple-500 shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-transform duration-300 group-hover:scale-105">
+              <span className="text-sm font-bold leading-none text-white">P</span>
             </div>
-            <span className="font-display text-2xl font-bold">ProofKits</span>
+            <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ProofKit</span>
           </Link>
-          <ThemeToggle className="border-[var(--app-border)] bg-[var(--landing-panel)] text-[var(--landing-text)] hover:bg-[var(--landing-panel-muted)]" />
-        </div>
+
+          <div className="flex items-center gap-4">
+            <ThemeToggle />
+            <Link
+              href="/signup"
+              className="inline-flex items-center rounded-full border border-slate-200 px-5 py-2 text-sm font-semibold text-slate-800 transition-all hover:bg-slate-50 dark:border-white/12 dark:bg-white/[0.04] dark:text-white dark:hover:bg-white/[0.08]"
+            >
+              Sign up
+            </Link>
+          </div>
+        </nav>
       </header>
 
-      <main className="mx-auto flex w-full max-w-6xl items-center justify-center px-4 py-12 sm:px-6 sm:py-16">
-        <div className="w-full max-w-xl rounded-3xl border border-[var(--landing-panel-border)] bg-[var(--landing-panel)] p-6 shadow-[0_30px_90px_rgba(30,41,59,0.15)] sm:p-8">
+      <main className="landing-fade-in flex flex-1 items-center justify-center px-4 py-12 sm:px-6">
+        <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-xl backdrop-blur-xl dark:border-white/[0.07] dark:bg-[#16132e]/85 dark:shadow-[0_24px_70px_rgba(88,28,135,0.35)] sm:p-8">
           <div className="mb-6 space-y-2">
-            <p className="inline-flex items-center gap-2 rounded-full border border-[var(--landing-panel-border)] bg-[var(--landing-panel-muted)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--landing-accent)]">
+            <p className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-violet-600 dark:border-white/10 dark:bg-white/[0.04] dark:text-violet-300">
               <ShieldCheck className="h-3.5 w-3.5" />
               Secure Sign In
             </p>
-            <h1 className="font-display text-3xl font-bold tracking-[-0.03em] text-[var(--landing-text)]">Welcome back</h1>
-            <p className="text-sm leading-6 text-[var(--landing-muted)]">
+            <h1 className="font-display text-3xl font-bold tracking-[-0.03em] text-slate-900 dark:text-white">Welcome back</h1>
+            <p className="text-sm leading-6 text-slate-600 dark:text-white/50">
               Access your workspace with strong session controls and secure authentication.
             </p>
           </div>
 
           <form onSubmit={handlePasswordLogin} className="space-y-4" noValidate>
             {(formError || isLocked) && (
-              <div className="rounded-xl border border-amber-300/60 bg-amber-100/80 px-4 py-3 text-sm text-amber-900 dark:border-amber-300/35 dark:bg-amber-500/14 dark:text-amber-100">
+              <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">
                 <div className="flex items-start gap-2">
-                  <AlertCircle className="mt-0.5 h-4 w-4" />
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
                   <span>{formError ?? `Too many attempts. Try again in ${remainingSeconds}s.`}</span>
                 </div>
               </div>
             )}
 
             {magicLinkSent && (
-              <div className="rounded-xl border border-emerald-300/60 bg-emerald-100/80 px-4 py-3 text-sm text-emerald-900 dark:border-emerald-300/35 dark:bg-emerald-500/14 dark:text-emerald-100">
+              <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
                 Magic link sent. Check your inbox for a secure sign-in link.
               </div>
             )}
 
             <div>
-              <label htmlFor="email" className="mb-1 block text-xs font-medium text-[var(--landing-soft)]">
+              <label htmlFor="email" className="mb-1.5 block text-xs font-medium text-slate-600 dark:text-white/60">
                 Email address
               </label>
               <div className="relative">
-                <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--landing-soft)]" />
+                <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 dark:text-white/40" />
                 <input
                   id="email"
                   name="email"
@@ -294,7 +314,7 @@ function LoginContent() {
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-xl border border-[var(--landing-panel-border)] bg-[var(--landing-panel-muted)] py-3 pl-10 pr-3 text-[var(--landing-text)] outline-none ring-violet-500/30 transition focus:ring-2"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-3 text-slate-900 outline-none ring-violet-500/30 transition placeholder:text-slate-400 focus:border-violet-500/50 focus:bg-slate-50 focus:ring-2 dark:border-white/10 dark:bg-black/20 dark:text-white dark:placeholder:text-white/30 dark:focus:bg-black/40"
                   placeholder="you@company.com"
                   aria-invalid={Boolean(errors.email)}
                   aria-describedby={errors.email ? 'email-error' : undefined}
@@ -302,14 +322,14 @@ function LoginContent() {
                 />
               </div>
               {errors.email && (
-                <p id="email-error" className="mt-1 text-sm text-red-600 dark:text-red-300">
+                <p id="email-error" className="mt-1.5 text-sm text-rose-500 dark:text-rose-400">
                   {errors.email}
                 </p>
               )}
             </div>
 
             <div>
-              <label htmlFor="password" className="mb-1 block text-xs font-medium text-[var(--landing-soft)]">
+              <label htmlFor="password" className="mb-1.5 block text-xs font-medium text-slate-600 dark:text-white/60">
                 Password
               </label>
               <div className="relative">
@@ -320,7 +340,7 @@ function LoginContent() {
                   autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-xl border border-[var(--landing-panel-border)] bg-[var(--landing-panel-muted)] py-3 pl-3 pr-11 text-[var(--landing-text)] outline-none ring-violet-500/30 transition focus:ring-2"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-4 pr-11 text-slate-900 outline-none ring-violet-500/30 transition placeholder:text-slate-400 focus:border-violet-500/50 focus:bg-slate-50 focus:ring-2 dark:border-white/10 dark:bg-black/20 dark:text-white dark:placeholder:text-white/30 dark:focus:bg-black/40"
                   placeholder="Enter your password"
                   aria-invalid={Boolean(errors.password)}
                   aria-describedby={errors.password ? 'password-error' : undefined}
@@ -329,7 +349,7 @@ function LoginContent() {
                 <button
                   type="button"
                   onClick={() => setShowPassword((value) => !value)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--landing-soft)] transition hover:text-[var(--landing-text)]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition hover:text-slate-600 dark:text-white/40 dark:hover:text-white"
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                   tabIndex={0}
                 >
@@ -337,17 +357,17 @@ function LoginContent() {
                 </button>
               </div>
               {errors.password && (
-                <p id="password-error" className="mt-1 text-sm text-red-600 dark:text-red-300">
+                <p id="password-error" className="mt-1.5 text-sm text-rose-500 dark:text-rose-400">
                   {errors.password}
                 </p>
               )}
             </div>
 
-            <div className="space-y-3 pt-1">
+            <div className="space-y-3 pt-2">
               <button
                 type="submit"
                 disabled={loading || magicLoading || googleLoading || isLocked}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 px-4 py-3 text-sm font-semibold text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 px-4 py-3 text-sm font-semibold text-white shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {loading ? (
                   <>
@@ -363,7 +383,7 @@ function LoginContent() {
                 type="button"
                 onClick={handleMagicLink}
                 disabled={loading || magicLoading || googleLoading || isLocked}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[var(--landing-panel-border)] bg-[var(--landing-panel-muted)] px-4 py-3 text-sm font-semibold text-[var(--landing-text)] transition hover:bg-[var(--landing-panel)] disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-white/15 dark:bg-white/[0.04] dark:text-white dark:hover:border-white/25 dark:hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {magicLoading ? (
                   <>
@@ -379,7 +399,7 @@ function LoginContent() {
                 type="button"
                 onClick={handleGoogleSignIn}
                 disabled={loading || magicLoading || googleLoading || isLocked}
-                className="inline-flex w-full items-center justify-center gap-3 rounded-xl border border-[var(--landing-panel-border)] bg-[var(--landing-panel-muted)] px-4 py-3 text-sm font-semibold text-[var(--landing-text)] transition hover:bg-[var(--landing-panel)] disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-white/15 dark:bg-white/[0.04] dark:text-white dark:hover:border-white/25 dark:hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {googleLoading ? (
                   <>
@@ -389,14 +409,8 @@ function LoginContent() {
                 ) : (
                   <>
                     <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
-                      <path
-                        fill="#EA4335"
-                        d="M12 10.2v3.9h5.5c-.2 1.3-1.5 3.9-5.5 3.9-3.3 0-6-2.7-6-6s2.7-6 6-6c1.9 0 3.2.8 3.9 1.5l2.7-2.6C17 3.3 14.7 2.3 12 2.3A9.7 9.7 0 0 0 2.3 12 9.7 9.7 0 0 0 12 21.7c5.6 0 9.3-3.9 9.3-9.3 0-.6-.1-1-.2-1.5H12z"
-                      />
-                      <path
-                        fill="#34A853"
-                        d="M2.3 7.2l3.2 2.3A6 6 0 0 1 12 6c1.9 0 3.2.8 3.9 1.5l2.7-2.6C17 3.3 14.7 2.3 12 2.3A9.7 9.7 0 0 0 2.3 7.2z"
-                      />
+                      <path fill="#EA4335" d="M12 10.2v3.9h5.5c-.2 1.3-1.5 3.9-5.5 3.9-3.3 0-6-2.7-6-6s2.7-6 6-6c1.9 0 3.2.8 3.9 1.5l2.7-2.6C17 3.3 14.7 2.3 12 2.3A9.7 9.7 0 0 0 2.3 12 9.7 9.7 0 0 0 12 21.7c5.6 0 9.3-3.9 9.3-9.3 0-.6-.1-1-.2-1.5H12z" />
+                      <path fill="#34A853" d="M2.3 7.2l3.2 2.3A6 6 0 0 1 12 6c1.9 0 3.2.8 3.9 1.5l2.7-2.6C17 3.3 14.7 2.3 12 2.3A9.7 9.7 0 0 0 2.3 7.2z" />
                       <path fill="#FBBC05" d="M12 21.7c2.6 0 4.8-.9 6.4-2.4l-3-2.4c-.8.6-1.9 1.1-3.4 1.1a6 6 0 0 1-5.7-4l-3.2 2.5a9.7 9.7 0 0 0 9 5.2z" />
                       <path fill="#4285F4" d="M21.3 12.4c0-.6-.1-1-.2-1.5H12v3.9h5.5a4.8 4.8 0 0 1-2 2.9l3 2.4c1.8-1.7 2.8-4.1 2.8-7.7z" />
                     </svg>
@@ -407,25 +421,25 @@ function LoginContent() {
             </div>
           </form>
 
-          <div className="mt-6 space-y-3 text-sm text-[var(--landing-muted)]">
+          <div className="mt-8 space-y-4 text-sm text-slate-500 dark:text-white/50 text-center">
             <p>
               Forgot your password?{' '}
-              <Link href="/forgot-password" className="font-semibold text-[var(--landing-accent)]">
+              <Link href="/forgot-password" className="font-semibold text-violet-600 hover:text-violet-500 dark:text-violet-300 dark:hover:text-violet-200 transition-colors">
                 Reset it securely
               </Link>
             </p>
             <p>
-              New to ProofKits?{' '}
-              <Link href={`/signup?next=${encodeURIComponent(nextPath)}`} className="font-semibold text-[var(--landing-accent)]">
+              New to ProofKit?{' '}
+              <Link href={`/signup?next=${encodeURIComponent(nextPath)}`} className="font-semibold text-violet-600 hover:text-violet-500 dark:text-violet-300 dark:hover:text-violet-200 transition-colors">
                 Create an account
               </Link>
             </p>
             {searchParams.get('reset') === 'success' ? (
-              <p className="rounded-xl border border-emerald-300/60 bg-emerald-100/80 px-3 py-2 text-sm text-emerald-900 dark:border-emerald-300/35 dark:bg-emerald-500/14 dark:text-emerald-100">
+              <p className="rounded-xl border border-emerald-500/30 bg-emerald-50 p-3 text-sm text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-200">
                 Password updated successfully. Please sign in with your new password.
               </p>
             ) : null}
-            <p className="text-xs text-[var(--landing-soft)]">
+            <p className="text-[11px] text-slate-400 dark:text-white/30 pt-2 border-t border-slate-200 dark:border-white/[0.06]">
               We protect authentication flows with secure session cookies and strict redirect validation.
             </p>
           </div>
