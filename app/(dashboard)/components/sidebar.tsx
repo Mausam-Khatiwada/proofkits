@@ -14,7 +14,8 @@ import {
   Settings,
   LogOut,
   Menu,
-  X
+  X,
+  Palette
 } from 'lucide-react';
 import { getInitials, getAvatarColor } from '@/components/dashboard/utils';
 
@@ -68,6 +69,7 @@ export function Sidebar({ email, plan, fullName, pendingCount }: SidebarProps) {
         { href: '/dashboard/widgets', label: 'Widgets', icon: Layers },
         { href: '/wall-of-love', label: 'Wall of Love', icon: Heart },
         { href: '/embed-library', label: 'Embed Library', icon: Code2 },
+        { href: '/style-gallery', label: 'Style Gallery', icon: Palette },
         { href: '/analytics', label: 'Analytics', icon: BarChart3 },
       ],
     },

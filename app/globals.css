@@ -184,6 +184,132 @@ body {
   --tw-ring-offset-color: var(--dash-surface) !important;
 }
 
+/* ══════════════════════════════════════════════════════════════
+   STYLE PREVIEW ISOLATION
+   Resets dashboard theme overrides inside testimonial previews
+   so light-mode styles show actual light colors.
+   ══════════════════════════════════════════════════════════════ */
+
+.dashboard-theme .style-preview-isolate .bg-white,
+.dashboard-theme .style-preview-isolate [class*="bg-white/"] {
+  background-color: rgba(255, 255, 255, 1) !important;
+}
+
+.dashboard-theme .style-preview-isolate [class*="bg-white/90"] {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dashboard-theme .style-preview-isolate [class*="bg-white/60"] {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dashboard-theme .style-preview-isolate [class*="bg-white/5"] {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.dashboard-theme .style-preview-isolate .bg-gray-50 {
+  background-color: #f9fafb !important;
+}
+
+.dashboard-theme .style-preview-isolate .bg-gray-100 {
+  background-color: #f3f4f6 !important;
+}
+
+.dashboard-theme .style-preview-isolate .text-gray-900 {
+  color: #111827 !important;
+}
+
+.dashboard-theme .style-preview-isolate .text-gray-800 {
+  color: #1f2937 !important;
+}
+
+.dashboard-theme .style-preview-isolate .text-gray-700 {
+  color: #374151 !important;
+}
+
+.dashboard-theme .style-preview-isolate .text-gray-600 {
+  color: #4b5563 !important;
+}
+
+.dashboard-theme .style-preview-isolate .text-gray-500 {
+  color: #6b7280 !important;
+}
+
+.dashboard-theme .style-preview-isolate .text-gray-400 {
+  color: #9ca3af !important;
+}
+
+.dashboard-theme .style-preview-isolate .text-gray-300 {
+  color: #d1d5db !important;
+}
+
+.dashboard-theme .style-preview-isolate .text-gray-200 {
+  color: #e5e7eb !important;
+}
+
+.dashboard-theme .style-preview-isolate .text-black {
+  color: #000000 !important;
+}
+
+.dashboard-theme .style-preview-isolate .text-white {
+  color: #ffffff !important;
+}
+
+.dashboard-theme .style-preview-isolate .border-gray-50 {
+  border-color: #f9fafb !important;
+}
+
+.dashboard-theme .style-preview-isolate .border-gray-100 {
+  border-color: #f3f4f6 !important;
+}
+
+.dashboard-theme .style-preview-isolate .border-gray-200 {
+  border-color: #e5e7eb !important;
+}
+
+.dashboard-theme .style-preview-isolate .border-gray-300 {
+  border-color: #d1d5db !important;
+}
+
+.dashboard-theme .style-preview-isolate .border-black {
+  border-color: #000000 !important;
+}
+
+.dashboard-theme .style-preview-isolate .border-white {
+  border-color: #ffffff !important;
+}
+
+.dashboard-theme .style-preview-isolate .divide-gray-50 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #f9fafb !important;
+}
+
+/* Also reset the dark-specific violet/emerald/amber overrides inside previews */
+.dark .dashboard-theme .style-preview-isolate .bg-violet-50,
+.dark .dashboard-theme .style-preview-isolate .bg-violet-100 {
+  background-color: revert-layer !important;
+}
+
+.dark .dashboard-theme .style-preview-isolate .bg-emerald-50 {
+  background-color: revert-layer !important;
+}
+
+.dark .dashboard-theme .style-preview-isolate .bg-amber-50 {
+  background-color: revert-layer !important;
+}
+
+.dark .dashboard-theme .style-preview-isolate .text-violet-600 {
+  color: revert-layer !important;
+}
+
+.dark .dashboard-theme .style-preview-isolate .text-emerald-600 {
+  color: revert-layer !important;
+}
+
+.dark .dashboard-theme .style-preview-isolate .text-amber-700,
+.dark .dashboard-theme .style-preview-isolate .text-amber-600 {
+  color: revert-layer !important;
+}
+
 html.theme-animating body {
   transition: background 1800ms ease, color 1800ms ease;
 }
@@ -445,6 +571,99 @@ html.theme-animating [class*="border-"] {
   100% { transform: translateY(0px); }
 }
 
+/* ══════════════════════════════════════════════════════════════
+   STYLE GALLERY – Testimonial Style Animations
+   ══════════════════════════════════════════════════════════════ */
+
+/* Gallery card hover lift */
+.style-gallery-card {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+
+.style-gallery-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Gradient glow border */
+.style-gradient-glow-border {
+  background: linear-gradient(135deg, #8b5cf6, #06b6d4, #8b5cf6, #ec4899);
+  background-size: 300% 300%;
+  animation: style-gradient-rotate 4s ease infinite;
+}
+
+@keyframes style-gradient-rotate {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Neon pulse */
+.style-neon-pulse {
+  animation: style-neon-pulse-anim 3s ease-in-out infinite;
+}
+
+@keyframes style-neon-pulse-anim {
+  0%, 100% {
+    box-shadow:
+      0 0 20px rgba(34, 211, 238, 0.15),
+      0 0 60px rgba(34, 211, 238, 0.05);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(34, 211, 238, 0.25),
+      0 0 80px rgba(34, 211, 238, 0.1),
+      inset 0 0 30px rgba(34, 211, 238, 0.05);
+  }
+}
+
+/* Slide in from left */
+.style-slide-in {
+  animation: style-slide-in-anim 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes style-slide-in-anim {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Floating bubble bobbing */
+.style-float-bubble {
+  animation: style-float-bubble-anim 6s ease-in-out infinite;
+}
+
+@keyframes style-float-bubble-anim {
+  0%, 100% { transform: translateY(0); }
+  33% { transform: translateY(-6px); }
+  66% { transform: translateY(3px); }
+}
+
+/* Typing cursor blink */
+.style-typing-cursor {
+  animation: style-cursor-blink 1s step-end infinite;
+}
+
+@keyframes style-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Aurora shimmer sweep */
+.style-aurora-shimmer {
+  animation: style-aurora-sweep 6s ease-in-out infinite;
+}
+
+@keyframes style-aurora-sweep {
+  0% { background-position: -100% 0; }
+  50% { background-position: 200% 0; }
+  100% { background-position: -100% 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html.theme-animating body {
     transition: none;
@@ -467,7 +686,17 @@ html.theme-animating [class*="border-"] {
   .stars-layer,
   .hero-float-card,
   .hero-dot-pulse,
-  .hero-line-anim {
+  .hero-line-anim,
+  .style-gradient-glow-border,
+  .style-neon-pulse,
+  .style-slide-in,
+  .style-float-bubble,
+  .style-typing-cursor,
+  .style-aurora-shimmer {
     animation: none !important;
+  }
+
+  .style-gallery-card:hover {
+    transform: none;
   }
 }

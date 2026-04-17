@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
-import { Code2, Layers } from 'lucide-react';
+import Link from 'next/link';
+import { Code2, Layers, Palette } from 'lucide-react';
 import type { Widget } from '@/lib/types';
 import { CopyButton } from '@/components/dashboard/CopyButton';
 
@@ -19,7 +20,7 @@ export default async function EmbedLibraryPage() {
 
   return (
     <>
-      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] pl-14 pr-4 md:px-8 flex items-center">
+      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] pl-14 pr-4 md:px-8 flex items-center justify-between">
         <div>
           <h1 className="text-lg font-semibold text-gray-900">
             Embed Library
@@ -28,6 +29,13 @@ export default async function EmbedLibraryPage() {
             Copy embed codes to display testimonials anywhere
           </p>
         </div>
+        <Link
+          href="/style-gallery"
+          className="flex items-center gap-2 px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-medium rounded-xl transition-colors"
+        >
+          <Palette className="w-4 h-4" />
+          Browse Styles
+        </Link>
       </header>
 
       <div className="px-4 py-6 md:px-8">
