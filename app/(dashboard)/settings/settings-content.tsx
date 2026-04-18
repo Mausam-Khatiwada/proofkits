@@ -6,12 +6,14 @@ import { createClient } from '@/lib/supabase/client';
 import { User, CreditCard, Check, Zap } from 'lucide-react';
 import type { Profile } from '@/lib/types';
 import { sanitizePlainText } from '@/lib/security/input-sanitize';
+import { getUpgradeCopy, type PricingFeature } from '@/lib/billing/plans';
 
 interface SettingsContentProps {
   profile: Profile;
+  upgradeFeature?: PricingFeature | null;
 }
 
-export function SettingsContent({ profile }: SettingsContentProps) {
+export function SettingsContent({ profile, upgradeFeature = null }: SettingsContentProps) {
   const router = useRouter();
   const [fullName, setFullName] = useState(profile.full_name ?? '');
   const [saving, setSaving] = useState(false);
@@ -19,6 +21,7 @@ export function SettingsContent({ profile }: SettingsContentProps) {
   const [upgrading, setUpgrading] = useState(false);
   const [managingBilling, setManagingBilling] = useState(false);
   const [billingError, setBillingError] = useState<string | null>(null);
+  const upgradeCopy = upgradeFeature ? getUpgradeCopy(upgradeFeature) : null;
 
   async function handleSaveName(e: React.FormEvent) {
     e.preventDefault();
@@ -92,6 +95,16 @@ export function SettingsContent({ profile }: SettingsContentProps) {
       </header>
 
       <div className="px-4 py-6 md:px-8 max-w-2xl">
+        {upgradeCopy && profile.plan === 'free' ? (
+          <div className="mb-5 rounded-2xl border border-violet-200 bg-violet-50 p-5 shadow-[0_1px_3px_rgba(124,58,237,0.06)]">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-600">
+              Upgrade unlock
+            </p>
+            <h2 className="mt-2 text-lg font-semibold text-gray-900">{upgradeCopy.title}</h2>
+            <p className="mt-1 text-sm text-violet-800">{upgradeCopy.description}</p>
+          </div>
+        ) : null}
+
         {/* Profile Section */}
         <div className="bg-white rounded-2xl border border-[#EDE9FE] p-6 mb-5 shadow-[0_1px_3px_rgba(124,58,237,0.06)] hover:shadow-[0_4px_20px_rgba(124,58,237,0.08)] transition-shadow duration-200">
           <h2 className="text-sm font-semibold text-gray-800 mb-4 flex items-center gap-2">
@@ -169,15 +182,15 @@ export function SettingsContent({ profile }: SettingsContentProps) {
                 <ul className="text-gray-600 text-sm space-y-1.5 mb-4">
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-violet-500" />
-                    Unlimited widgets
+                    Unlimited widgets and testimonials
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-violet-500" />
-                    Remove &quot;Powered by Proofengine&quot; badge
+                    All 15 widget styles and badge removal
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-violet-500" />
-                    Priority support
+                    Unlimited AI outreach, analytics, and Wall of Love
                   </li>
                 </ul>
               </div>

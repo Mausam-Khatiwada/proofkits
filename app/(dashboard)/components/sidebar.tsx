@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
@@ -15,9 +15,11 @@ import {
   LogOut,
   Menu,
   X,
-  Palette
+  Palette,
+  Lock
 } from 'lucide-react';
 import { getInitials, getAvatarColor } from '@/components/dashboard/utils';
+import { canAccessPricingFeature, getUpgradeHref, type PricingFeature } from '@/lib/billing/plans';
 
 interface SidebarProps {
   email: string;
@@ -31,6 +33,7 @@ interface NavItem {
   label: string;
   icon: typeof LayoutDashboard;
   badge?: string;
+  feature?: PricingFeature;
 }
 
 function isItemActive(item: NavItem, pathname: string): boolean {
@@ -46,19 +49,15 @@ export function Sidebar({ email, plan, fullName, pendingCount }: SidebarProps) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
-
   const navGroups: { label: string; items: NavItem[] }[] = [
     {
       label: 'MAIN',
       items: [
         { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-        {
-          href: '/inbox',
-          label: 'Inbox',
-          icon: Inbox,
+            {
+              href: '/inbox',
+              label: 'Inbox',
+              icon: Inbox,
           badge: pendingCount > 0 ? String(pendingCount) : undefined,
         },
       ],
@@ -67,10 +66,10 @@ export function Sidebar({ email, plan, fullName, pendingCount }: SidebarProps) {
       label: 'MANAGE',
       items: [
         { href: '/dashboard/widgets', label: 'Widgets', icon: Layers },
-        { href: '/wall-of-love', label: 'Wall of Love', icon: Heart },
+        { href: '/wall-of-love', label: 'Wall of Love', icon: Heart, feature: 'wall_of_love' },
         { href: '/embed-library', label: 'Embed Library', icon: Code2 },
         { href: '/style-gallery', label: 'Style Gallery', icon: Palette },
-        { href: '/analytics', label: 'Analytics', icon: BarChart3 },
+        { href: '/analytics', label: 'Analytics', icon: BarChart3, feature: 'analytics' },
       ],
     },
     {
@@ -130,10 +129,13 @@ export function Sidebar({ email, plan, fullName, pendingCount }: SidebarProps) {
             {group.items.map((item) => {
               const Icon = item.icon;
               const active = isItemActive(item, pathname);
+              const accessible = !item.feature || canAccessPricingFeature(plan, item.feature);
+              const href = !accessible && item.feature ? getUpgradeHref(item.feature) : item.href;
               return (
                 <Link
                   key={`${group.label}-${item.label}`}
-                  href={item.href}
+                  href={href}
+                  onClick={() => setIsOpen(false)}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all duration-150 cursor-pointer mb-0.5 ${
                     active
                       ? 'bg-[var(--dash-sidebar-link-active-bg)] text-[var(--dash-sidebar-link-active-text)] shadow-[inset_2px_0_0_var(--dash-sidebar-link-active-bar)]'
@@ -142,11 +144,16 @@ export function Sidebar({ email, plan, fullName, pendingCount }: SidebarProps) {
                 >
                   <Icon className="w-[18px] h-[18px] flex-shrink-0" />
                   <span className="flex-1 truncate">{item.label}</span>
-                  {item.badge && (
+                  {!accessible ? (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-violet-500/15 px-2 py-0.5 text-[10px] font-semibold text-violet-700 dark:text-violet-300">
+                      <Lock className="h-3 w-3" />
+                      PRO
+                    </span>
+                  ) : item.badge ? (
                     <span className="bg-violet-600 text-white text-[10px] rounded-full w-5 h-5 flex items-center justify-center ml-auto font-medium">
                       {item.badge}
                     </span>
-                  )}
+                  ) : null}
                 </Link>
               );
             })}

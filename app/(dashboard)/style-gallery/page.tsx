@@ -1,28 +1,19 @@
 import { createClient } from '@/lib/supabase/server';
 import { StyleGalleryContent } from './style-gallery-content';
-import { syncDodoPlanForUser } from '@/lib/billing/sync-dodo-plan';
+import { resolveBillingContextForUser } from '@/lib/billing/profile';
 
 export default async function StyleGalleryPage() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  const effectivePlan = await syncDodoPlanForUser({ supabase, user: user! });
-
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('plan')
-    .eq('id', user!.id)
-    .single();
+  const { plan } = await resolveBillingContextForUser({ supabase, user: user!, syncPlan: true });
 
   const { data: widgets } = await supabase
     .from('widgets')
     .select('id, name, slug')
     .eq('user_id', user!.id)
     .order('created_at', { ascending: false });
-
-  const userPlan = effectivePlan ?? profile?.plan ?? 'free';
 
   return (
     <StyleGalleryContent
@@ -31,7 +22,7 @@ export default async function StyleGalleryPage() {
         name: w.name,
         slug: w.slug,
       }))}
-      userPlan={userPlan}
+      userPlan={plan}
     />
   );
 }

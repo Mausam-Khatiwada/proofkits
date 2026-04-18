@@ -9,6 +9,8 @@ export interface Profile {
   dodo_customer_id: string | null;
   dodo_subscription_id: string | null;
   widget_count: number;
+  ai_requests_used: number;
+  ai_requests_period: string | null;
   created_at: string;
 }
 

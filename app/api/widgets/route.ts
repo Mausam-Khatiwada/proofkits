@@ -2,11 +2,12 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { z } from 'zod';
 import { sanitizePlainText } from '@/lib/security/input-sanitize';
-import { syncDodoPlanForUser } from '@/lib/billing/sync-dodo-plan';
 import { enforceSameOriginMutation } from '@/lib/security/request-guard';
 import { enforceRateLimit } from '@/lib/security/rate-limit';
 import { logSecurityEvent } from '@/lib/security/audit';
 import { emitDomainEvent } from '@/lib/events/outbox';
+import { resolveBillingContextForUser } from '@/lib/billing/profile';
+import { getWidgetLimit } from '@/lib/billing/plans';
 
 const createWidgetSchema = z.object({
   name: z.string().min(1, 'Name is required').max(100, 'Name is too long'),
@@ -61,24 +62,18 @@ export async function POST(request: Request) {
     );
   }
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('plan')
-    .eq('id', user.id)
-    .single();
-
-  const syncedPlan = await syncDodoPlanForUser({ supabase, user });
-  const effectivePlan = syncedPlan ?? profile?.plan ?? 'free';
+  const { plan: effectivePlan } = await resolveBillingContextForUser({ supabase, user, syncPlan: true });
 
   const { count } = await supabase
     .from('widgets')
     .select('*', { count: 'exact', head: true })
     .eq('user_id', user.id);
 
-  if (effectivePlan === 'free' && (count ?? 0) >= 1) {
+  const widgetLimit = getWidgetLimit(effectivePlan);
+  if (widgetLimit !== null && (count ?? 0) >= widgetLimit) {
     logSecurityEvent({ action: 'widget.create', outcome: 'denied', userId: user.id, detail: 'free_plan_limit', request });
     return NextResponse.json(
-      { error: 'Free plan is limited to 1 widget. Upgrade to Pro for unlimited widgets.' },
+      { error: 'Starter plan is limited to 1 widget. Upgrade to Pro for unlimited widgets.' },
       { status: 403 }
     );
   }

@@ -1,19 +1,12 @@
 import { createClient } from '@/lib/supabase/server';
 import { DashboardContent } from './dashboard-content';
 import type { Widget, Testimonial } from '@/lib/types';
-import { syncDodoPlanForUser } from '@/lib/billing/sync-dodo-plan';
+import { resolveBillingContextForUser } from '@/lib/billing/profile';
 
 export default async function DashboardPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  const effectivePlan = await syncDodoPlanForUser({ supabase, user: user! });
-
-  // Fetch profile for greeting name & plan
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('full_name, plan')
-    .eq('id', user!.id)
-    .single();
+  const { profile, plan } = await resolveBillingContextForUser({ supabase, user: user!, syncPlan: true });
 
   const { data: widgets } = await supabase
     .from('widgets')
@@ -51,8 +44,8 @@ export default async function DashboardPage() {
       testimonials={testimonials}
       totalTestimonials={totalTestimonials}
       totalApproved={totalApproved}
-      userName={profile?.full_name ?? user?.email?.split('@')[0] ?? 'there'}
-      userPlan={effectivePlan ?? profile?.plan ?? 'free'}
+      userName={profile.full_name ?? user?.email?.split('@')[0] ?? 'there'}
+      userPlan={plan}
     />
   );
 }

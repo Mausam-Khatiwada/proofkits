@@ -5,6 +5,7 @@ import { Resend } from 'resend';
 import { enforceRateLimit } from '@/lib/security/rate-limit';
 import { sanitizeOptionalPlainText, sanitizePlainText } from '@/lib/security/input-sanitize';
 import { emitDomainEvent } from '@/lib/events/outbox';
+import { getTestimonialLimit, normalizePlan } from '@/lib/billing/plans';
 
 const testimonialSchema = z.object({
   author_name: z.string().min(1, 'Name is required').max(100, 'Name is too long'),
@@ -54,6 +55,35 @@ export async function POST(
 
   if (!widget) {
     return NextResponse.json({ error: 'Widget not found' }, { status: 404 });
+  }
+
+  const { data: ownerProfile } = await supabase
+    .from('profiles')
+    .select('plan')
+    .eq('id', widget.user_id)
+    .single();
+
+  const ownerPlan = normalizePlan(ownerProfile?.plan);
+  const testimonialLimit = getTestimonialLimit(ownerPlan);
+  if (testimonialLimit !== null) {
+    const { data: ownerWidgets } = await supabase
+      .from('widgets')
+      .select('id')
+      .eq('user_id', widget.user_id);
+
+    const ownerWidgetIds = (ownerWidgets ?? []).map((ownerWidget: { id: string }) => ownerWidget.id);
+    const scopedWidgetIds = ownerWidgetIds.length > 0 ? ownerWidgetIds : [widget.id];
+    const { count: testimonialCount } = await supabase
+      .from('testimonials')
+      .select('*', { count: 'exact', head: true })
+      .in('widget_id', scopedWidgetIds);
+
+    if ((testimonialCount ?? 0) >= testimonialLimit) {
+      return NextResponse.json(
+        { error: 'This workspace is on the Starter plan and has reached the 10 testimonial storage limit.' },
+        { status: 403 }
+      );
+    }
   }
 
   let body: unknown;

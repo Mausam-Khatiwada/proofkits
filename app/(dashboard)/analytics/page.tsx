@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
 import {
   MessageSquare,
   Star,
@@ -6,12 +7,19 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import type { Widget, Testimonial } from '@/lib/types';
+import { resolveBillingContextForUser } from '@/lib/billing/profile';
+import { canAccessPricingFeature, getUpgradeHref } from '@/lib/billing/plans';
 
 export default async function AnalyticsPage() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  const { plan } = await resolveBillingContextForUser({ supabase, user: user!, syncPlan: true });
+
+  if (!canAccessPricingFeature(plan, 'analytics')) {
+    redirect(getUpgradeHref('analytics'));
+  }
 
   const { data: widgets } = await supabase
     .from('widgets')

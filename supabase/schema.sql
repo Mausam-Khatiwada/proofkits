@@ -11,6 +11,8 @@ CREATE TABLE profiles (
   dodo_customer_id TEXT,
   dodo_subscription_id TEXT,
   widget_count INT DEFAULT 0,
+  ai_requests_used INT NOT NULL DEFAULT 0,
+  ai_requests_period TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 

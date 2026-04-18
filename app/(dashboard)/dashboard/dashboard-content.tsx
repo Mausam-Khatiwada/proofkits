@@ -17,6 +17,7 @@ import { QuickSend } from '@/components/dashboard/QuickSend';
 import { WidgetHealth } from '@/components/dashboard/WidgetHealth';
 import { WallOfLove } from '@/components/dashboard/WallOfLove';
 import { ApprovalRate } from '@/components/dashboard/ApprovalRate';
+import { getUpgradeHref, getWidgetLimit } from '@/lib/billing/plans';
 
 interface DashboardContentProps {
   widgets: WidgetWithCount[];
@@ -77,6 +78,9 @@ export function DashboardContent({
       : 0;
   const normalizedPlan = userPlan?.toLowerCase() === 'pro' ? 'pro' : 'free';
   const planLabel = normalizedPlan === 'pro' ? 'Pro Mode' : 'Free Mode';
+  const widgetLimit = getWidgetLimit(normalizedPlan);
+  const canCreateWidget = widgetLimit === null || widgets.length < widgetLimit;
+  const widgetUpgradeHref = getUpgradeHref('unlimited_widgets');
 
   return (
     <>
@@ -84,6 +88,8 @@ export function DashboardContent({
         userName={userName}
         onNewWidget={() => setShowForm(true)}
         pendingCount={totalPending}
+        canCreateWidget={canCreateWidget}
+        upgradeHref={widgetUpgradeHref}
       />
 
       <div className="px-4 py-6 md:px-8">
@@ -96,6 +102,22 @@ export function DashboardContent({
         >
           {planLabel}
         </div>
+
+        {!canCreateWidget && (
+          <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-violet-200 bg-violet-50 px-4 py-4 text-sm text-violet-900 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="font-semibold">Starter includes 1 widget.</p>
+              <p className="text-violet-700">Upgrade to Pro to create unlimited widgets and collections.</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => router.push(widgetUpgradeHref)}
+              className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-violet-700"
+            >
+              Upgrade to Pro
+            </button>
+          </div>
+        )}
 
         {/* Create Widget Modal */}
         {showForm && (
@@ -217,8 +239,8 @@ export function DashboardContent({
 
         {/* Bottom Row */}
         <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-2">
-          <WallOfLove testimonials={testimonials} />
-          <ApprovalRate total={totalTestimonials} approved={totalApproved} />
+          <WallOfLove testimonials={testimonials} userPlan={normalizedPlan} />
+          <ApprovalRate total={totalTestimonials} approved={totalApproved} userPlan={normalizedPlan} />
         </div>
       </div>
     </>

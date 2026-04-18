@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { Sidebar } from './components/sidebar';
 import { PRIVATE_ROBOTS } from '@/lib/seo';
+import { resolveBillingContextForUser } from '@/lib/billing/profile';
 
 export const metadata: Metadata = {
   robots: PRIVATE_ROBOTS,
@@ -20,26 +21,7 @@ export default async function DashboardLayout({
     redirect('/login');
   }
 
-  let { data: profile } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', user.id)
-    .single();
-
-  // Auto-create profile if it doesn't exist
-  if (!profile) {
-    const { data: newProfile } = await supabase
-      .from('profiles')
-      .upsert({
-        id: user.id,
-        email: user.email ?? '',
-        full_name: user.user_metadata?.full_name ?? null,
-        plan: 'free',
-      })
-      .select()
-      .single();
-    profile = newProfile;
-  }
+  const { profile, plan } = await resolveBillingContextForUser({ supabase, user });
 
   // Fetch real pending testimonial count for sidebar badge
   const { data: widgets } = await supabase
@@ -62,8 +44,8 @@ export default async function DashboardLayout({
     <div className="dashboard-theme min-h-screen">
       <Sidebar
         email={user.email ?? ''}
-        plan={profile?.plan ?? 'free'}
-        fullName={profile?.full_name ?? null}
+        plan={plan}
+        fullName={profile.full_name ?? null}
         pendingCount={pendingCount}
       />
       <main className="md:ml-[220px] min-h-screen bg-[var(--dash-bg)] text-[var(--dash-text)] transition-[margin] overflow-x-hidden">

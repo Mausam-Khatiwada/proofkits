@@ -1,10 +1,12 @@
 import { createClient } from '@/lib/supabase/server';
 import { WidgetsContent } from './widgets-content';
 import type { Widget, Testimonial } from '@/lib/types';
+import { resolveBillingContextForUser } from '@/lib/billing/profile';
 
 export default async function WidgetsPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
+  const { plan } = await resolveBillingContextForUser({ supabase, user: user! });
 
   const { data: widgets } = await supabase
     .from('widgets')
@@ -32,5 +34,5 @@ export default async function WidgetsPage() {
     };
   });
 
-  return <WidgetsContent widgets={widgetsWithCounts} />;
+  return <WidgetsContent widgets={widgetsWithCounts} userPlan={plan} />;
 }

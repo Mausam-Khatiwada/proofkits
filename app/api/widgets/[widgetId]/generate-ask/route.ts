@@ -5,7 +5,9 @@ import { z } from 'zod';
 import { enforceSameOriginMutation } from '@/lib/security/request-guard';
 import { enforceRateLimit } from '@/lib/security/rate-limit';
 import { logSecurityEvent } from '@/lib/security/audit';
-import { requireAuthenticatedUser, requireWidgetOwner } from '@/lib/security/permissions';
+import { requireWidgetOwner } from '@/lib/security/permissions';
+import { getAiUsageSnapshot } from '@/lib/billing/plans';
+import { resolveBillingContextForUser } from '@/lib/billing/profile';
 
 const generateAskSchema = z.object({
   customerName: z.string().min(1, 'Customer name is required').max(100),
@@ -26,6 +28,14 @@ interface GeneratedMessages {
   twitter: string;
 }
 
+interface GenerateAskResponse extends GeneratedMessages {
+  usage: {
+    limit: number | null;
+    usedThisMonth: number;
+    remainingThisMonth: number | null;
+  };
+}
+
 export async function POST(
   request: Request,
   { params }: { params: Promise<{ widgetId: string }> }
@@ -40,7 +50,7 @@ export async function POST(
   }
 
   const supabase = await createClient();
-  const user = await requireAuthenticatedUser(supabase);
+  const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
     logSecurityEvent({ action: 'widget.generate_ask', outcome: 'denied', detail: 'unauthorized', targetId: widgetId, request });
@@ -70,6 +80,17 @@ export async function POST(
   if (!widget) {
     logSecurityEvent({ action: 'widget.generate_ask', outcome: 'denied', userId: user.id, detail: 'not_found_or_not_owner', targetId: widgetId, request });
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
+  const { profile, plan } = await resolveBillingContextForUser({ supabase, user, syncPlan: true });
+  const usage = getAiUsageSnapshot(plan, profile);
+
+  if (usage.remainingThisMonth !== null && usage.remainingThisMonth <= 0) {
+    logSecurityEvent({ action: 'widget.generate_ask', outcome: 'denied', userId: user.id, detail: 'monthly_ai_limit_reached', targetId: widgetId, request });
+    return NextResponse.json(
+      { error: 'Starter includes 5 AI request messages per month. Upgrade to Pro for unlimited AI outreach.' },
+      { status: 403 }
+    );
   }
 
   let body: unknown;
@@ -153,8 +174,30 @@ Each under 80 words. Warm, specific, not pushy. Return as JSON only, no markdown
       );
     }
 
+    const nextUsedThisMonth = usage.usedThisMonth + 1;
+    const { error: usageUpdateError } = await supabase
+      .from('profiles')
+      .update({
+        ai_requests_used: nextUsedThisMonth,
+        ai_requests_period: usage.period,
+      })
+      .eq('id', user.id);
+
+    if (usageUpdateError) {
+      logSecurityEvent({ action: 'widget.generate_ask', outcome: 'error', userId: user.id, detail: 'ai_usage_save_failed', targetId: widgetId, request });
+    }
+
+    const responsePayload: GenerateAskResponse = {
+      ...messages,
+      usage: {
+        limit: usage.limit,
+        usedThisMonth: nextUsedThisMonth,
+        remainingThisMonth: usage.limit === null ? null : Math.max(usage.limit - nextUsedThisMonth, 0),
+      },
+    };
+
     logSecurityEvent({ action: 'widget.generate_ask', outcome: 'success', userId: user.id, targetId: widgetId, request });
-    return NextResponse.json(messages);
+    return NextResponse.json(responsePayload);
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error';
     logSecurityEvent({ action: 'widget.generate_ask', outcome: 'error', userId: user.id, detail: message, targetId: widgetId, request });

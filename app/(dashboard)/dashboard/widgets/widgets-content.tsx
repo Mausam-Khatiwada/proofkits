@@ -6,17 +6,22 @@ import { useRouter } from 'next/navigation';
 import { Layers, Plus, ChevronRight } from 'lucide-react';
 import type { WidgetWithCount } from '@/lib/types';
 import { timeAgo } from '@/components/dashboard/utils';
+import { getUpgradeHref, getWidgetLimit } from '@/lib/billing/plans';
 
 interface WidgetsContentProps {
   widgets: WidgetWithCount[];
+  userPlan: string;
 }
 
-export function WidgetsContent({ widgets }: WidgetsContentProps) {
+export function WidgetsContent({ widgets, userPlan }: WidgetsContentProps) {
   const router = useRouter();
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState('');
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const widgetLimit = getWidgetLimit(userPlan);
+  const hasReachedWidgetLimit = widgetLimit !== null && widgets.length >= widgetLimit;
+  const widgetUpgradeHref = getUpgradeHref('unlimited_widgets');
 
   async function handleCreateWidget(e: React.FormEvent) {
     e.preventDefault();
@@ -54,7 +59,8 @@ export function WidgetsContent({ widgets }: WidgetsContentProps) {
         <button
           type="button"
           onClick={() => setShowForm(true)}
-          className="bg-violet-600 hover:bg-violet-700 text-white text-sm font-medium px-4 py-2 rounded-xl flex items-center gap-2 transition-colors duration-150"
+          disabled={hasReachedWidgetLimit}
+          className="bg-violet-600 hover:bg-violet-700 text-white text-sm font-medium px-4 py-2 rounded-xl flex items-center gap-2 transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-60"
         >
           <Plus className="w-4 h-4" />
           New Widget
@@ -62,6 +68,21 @@ export function WidgetsContent({ widgets }: WidgetsContentProps) {
       </header>
 
       <div className="px-4 py-6 md:px-8">
+        {hasReachedWidgetLimit && (
+          <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-violet-200 bg-violet-50 px-4 py-4 text-sm text-violet-900 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="font-semibold">Starter includes 1 widget.</p>
+              <p className="text-violet-700">Upgrade to Pro to create unlimited widgets and keep growing your library.</p>
+            </div>
+            <Link
+              href={widgetUpgradeHref}
+              className="inline-flex items-center justify-center rounded-xl bg-violet-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-violet-700"
+            >
+              Upgrade to Pro
+            </Link>
+          </div>
+        )}
+
         {/* Create Widget Modal */}
         {showForm && (
           <div

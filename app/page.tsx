@@ -102,10 +102,10 @@ export default function HomePage() {
       <div className="pointer-events-none fixed inset-0 -z-10 hidden dark:block">
         {/* Base gradient */}
         <div className="absolute inset-0 bg-[#08070e]" />
-        
+
         {/* Star field */}
         <div className="stars-layer absolute inset-0" />
-        
+
         {/* Nebula glow top */}
         <div className="absolute -top-[20%] left-[10%] h-[50rem] w-[60rem] rounded-full bg-violet-900/20 blur-[180px]" />
         <div className="absolute -top-[10%] right-[5%] h-[40rem] w-[40rem] rounded-full bg-indigo-900/25 blur-[160px]" />
@@ -446,48 +446,48 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-            
+
             <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 p-5 dark:border-white/[0.08] dark:bg-white/[0.02] sm:p-8 lg:p-12">
-               <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-transparent dark:from-violet-500/10" />
-               <div className="relative space-y-4">
-                  {/* Decorative workflow UI */}
-                  <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/[0.06] dark:bg-[#0c0a1a] dark:shadow-2xl">
-                    <div className="flex items-center gap-3">
-                      <div className="h-8 w-8 rounded-full bg-emerald-500/10 flex items-center justify-center dark:bg-emerald-500/20">
-                        <Star className="h-4 w-4 text-emerald-500 fill-emerald-500 dark:text-emerald-400 dark:fill-emerald-400" />
-                      </div>
-                      <div>
-                        <div className="h-2 w-24 rounded bg-slate-200 dark:bg-white/20" />
-                        <div className="mt-2 h-2 w-32 rounded bg-slate-100 dark:bg-white/10" />
-                      </div>
+              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-transparent dark:from-violet-500/10" />
+              <div className="relative space-y-4">
+                {/* Decorative workflow UI */}
+                <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/[0.06] dark:bg-[#0c0a1a] dark:shadow-2xl">
+                  <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-full bg-emerald-500/10 flex items-center justify-center dark:bg-emerald-500/20">
+                      <Star className="h-4 w-4 text-emerald-500 fill-emerald-500 dark:text-emerald-400 dark:fill-emerald-400" />
                     </div>
-                    <div className="mt-5 space-y-2.5">
-                       <div className="h-2 w-full rounded bg-slate-100 dark:bg-white/10" />
-                       <div className="h-2 w-4/5 rounded bg-slate-100 dark:bg-white/10" />
+                    <div>
+                      <div className="h-2 w-24 rounded bg-slate-200 dark:bg-white/20" />
+                      <div className="mt-2 h-2 w-32 rounded bg-slate-100 dark:bg-white/10" />
                     </div>
                   </div>
-                  <div className="flex justify-center py-2">
-                    <ChevronDown className="h-6 w-6 text-violet-300 dark:text-violet-500/50" />
+                  <div className="mt-5 space-y-2.5">
+                    <div className="h-2 w-full rounded bg-slate-100 dark:bg-white/10" />
+                    <div className="h-2 w-4/5 rounded bg-slate-100 dark:bg-white/10" />
                   </div>
-                  <div className="rounded-xl border border-violet-200 bg-violet-50 p-5 shadow-sm dark:border-violet-500/30 dark:bg-violet-500/10 dark:shadow-[0_0_30px_rgba(139,92,246,0.15)] dark:backdrop-blur-md">
-                    <div className="flex items-start justify-between">
-                      <div className="flex gap-2 items-center">
-                         <div className="h-2 w-2 rounded-full bg-emerald-400 dark:bg-green-400" />
-                         <span className="text-[11px] font-medium uppercase tracking-wider text-violet-600 dark:text-violet-300">Published to Landing Page</span>
-                      </div>
-                    </div>
-                    <div className="mt-4 flex gap-1 text-amber-400 dark:text-yellow-400">
-                       <Star className="h-4 w-4 fill-current" />
-                       <Star className="h-4 w-4 fill-current" />
-                       <Star className="h-4 w-4 fill-current" />
-                       <Star className="h-4 w-4 fill-current" />
-                       <Star className="h-4 w-4 fill-current" />
-                    </div>
-                    <div className="mt-3 text-sm text-slate-700 dark:text-white/80 line-clamp-2">
-                      &quot;This product completely changed how we handle conversion tracking. The AI drafted exactly what I wanted to say...&quot;
+                </div>
+                <div className="flex justify-center py-2">
+                  <ChevronDown className="h-6 w-6 text-violet-300 dark:text-violet-500/50" />
+                </div>
+                <div className="rounded-xl border border-violet-200 bg-violet-50 p-5 shadow-sm dark:border-violet-500/30 dark:bg-violet-500/10 dark:shadow-[0_0_30px_rgba(139,92,246,0.15)] dark:backdrop-blur-md">
+                  <div className="flex items-start justify-between">
+                    <div className="flex gap-2 items-center">
+                      <div className="h-2 w-2 rounded-full bg-emerald-400 dark:bg-green-400" />
+                      <span className="text-[11px] font-medium uppercase tracking-wider text-violet-600 dark:text-violet-300">Published to Landing Page</span>
                     </div>
                   </div>
-               </div>
+                  <div className="mt-4 flex gap-1 text-amber-400 dark:text-yellow-400">
+                    <Star className="h-4 w-4 fill-current" />
+                    <Star className="h-4 w-4 fill-current" />
+                    <Star className="h-4 w-4 fill-current" />
+                    <Star className="h-4 w-4 fill-current" />
+                    <Star className="h-4 w-4 fill-current" />
+                  </div>
+                  <div className="mt-3 text-sm text-slate-700 dark:text-white/80 line-clamp-2">
+                    &quot;This product completely changed how we handle conversion tracking. The AI drafted exactly what I wanted to say...&quot;
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -501,40 +501,40 @@ export default function HomePage() {
             FAQ SECTION
         ═══════════════════════════════════════════════════════ */}
         <section className="landing-fade-in relative mx-auto max-w-4xl px-4 py-14 sm:px-8 sm:py-28">
-           <div className="mb-10 text-center sm:mb-16">
+          <div className="mb-10 text-center sm:mb-16">
             <h2 className="font-display text-[1.9rem] font-bold tracking-[-0.03em] text-slate-900 dark:text-white sm:text-3xl">
               Frequently asked questions
             </h2>
             <p className="mt-3 text-[0.95rem] text-slate-600 dark:text-white/50 sm:mt-4 sm:text-base">
               Everything you need to know about Proofengine and social proof infrastructure.
             </p>
-           </div>
+          </div>
 
-           <div className="space-y-4">
-              {[
-                {
-                  q: 'What makes Proofengine different from other testimonial platforms?',
-                  a: 'Proofengine is designed explicitly for modern SaaS teams. We provide an end-to-end infrastructure that not only collects text and video testimonials but utilizes AI to help customers write high-converting copy. We also provide native Next.js and React components for seamless, unbranded embedding that looks native to your site.'
-                },
-                {
-                  q: 'Are the embedded widgets SEO friendly?',
-                  a: 'Yes. Unlike legacy iframe solutions that hide content from search engines, our React components render semantic HTML with proper Schema.org markup. This ensures Google indexes your reviews, boosting your overall domain authority and search visibility.'
-                },
-                {
-                  q: 'Can I integrate this with my existing SaaS auth?',
-                  a: 'Absolutely. Proofengine offers robust APIs allowing you to pass metadata seamlessly. You can automatically attribute testimonials to verified users in your database, adding a "Verified User" trust badge to their reviews.'
-                },
-                {
-                  q: 'Is there a free tier for early startups?',
-                  a: 'Yes, our Starter plan is completely free and perfect for early-stage founders looking to validate their product with initial social proof. You get access to basic collection forms and display widgets.'
-                }
-              ].map((faq, i) => (
-                <div key={i} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/[0.07] dark:bg-white/[0.02] sm:p-6 lg:p-8">
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">{faq.q}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-white/50">{faq.a}</p>
-                </div>
-              ))}
-           </div>
+          <div className="space-y-4">
+            {[
+              {
+                q: 'What makes Proofengine different from other testimonial platforms?',
+                a: 'Proofengine is designed explicitly for modern SaaS teams. We provide an end-to-end infrastructure that not only collects text and video testimonials but utilizes AI to help customers write high-converting copy. We also provide native Next.js and React components for seamless, unbranded embedding that looks native to your site.'
+              },
+              {
+                q: 'Are the embedded widgets SEO friendly?',
+                a: 'Yes. Unlike legacy iframe solutions that hide content from search engines, our React components render semantic HTML with proper Schema.org markup. This ensures Google indexes your reviews, boosting your overall domain authority and search visibility.'
+              },
+              {
+                q: 'Can I integrate this with my existing SaaS auth?',
+                a: 'Absolutely. Proofengine offers robust APIs allowing you to pass metadata seamlessly. You can automatically attribute testimonials to verified users in your database, adding a "Verified User" trust badge to their reviews.'
+              },
+              {
+                q: 'Is there a free tier for early startups?',
+                a: 'Yes, our Starter plan is completely free and perfect for early-stage founders looking to validate their product with initial social proof. You get access to basic collection forms and display widgets.'
+              }
+            ].map((faq, i) => (
+              <div key={i} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/[0.07] dark:bg-white/[0.02] sm:p-6 lg:p-8">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">{faq.q}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-white/50">{faq.a}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* Subtle divider */}

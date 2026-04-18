@@ -1,7 +1,10 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
-import { Wand2, X, RefreshCw, Copy, Check, Loader2 } from 'lucide-react';
+import { Wand2, X, RefreshCw, Copy, Check, Loader2, Crown } from 'lucide-react';
+import type { AiUsageSnapshot } from '@/lib/billing/plans';
+import { getUpgradeHref } from '@/lib/billing/plans';
 
 interface GeneratedMessages {
   email: { subject: string; body: string };
@@ -11,9 +14,20 @@ interface GeneratedMessages {
 
 interface WriteAskPanelProps {
   widgetId: string;
+  userPlan: string;
+  aiUsage: AiUsageSnapshot;
 }
 
-export function WriteAskPanel({ widgetId }: WriteAskPanelProps) {
+interface GenerateAskResponse extends GeneratedMessages {
+  usage?: {
+    limit: number | null;
+    usedThisMonth: number;
+    remainingThisMonth: number | null;
+  };
+  error?: string;
+}
+
+export function WriteAskPanel({ widgetId, userPlan, aiUsage }: WriteAskPanelProps) {
   const [open, setOpen] = useState(false);
   const [customerName, setCustomerName] = useState('');
   const [service, setService] = useState('');
@@ -21,29 +35,48 @@ export function WriteAskPanel({ widgetId }: WriteAskPanelProps) {
   const [error, setError] = useState<string | null>(null);
   const [messages, setMessages] = useState<GeneratedMessages | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [usage, setUsage] = useState({
+    limit: aiUsage.limit,
+    usedThisMonth: aiUsage.usedThisMonth,
+    remainingThisMonth: aiUsage.remainingThisMonth,
+  });
+  const isPro = userPlan?.toLowerCase() === 'pro';
+  const isLocked = !isPro && usage.remainingThisMonth !== null && usage.remainingThisMonth <= 0;
 
   async function handleGenerate(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
     setLoading(true);
     setMessages(null);
+    try {
+      const res = await fetch(`/api/widgets/${widgetId}/generate-ask`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ customerName, service }),
+      });
 
-    const res = await fetch(`/api/widgets/${widgetId}/generate-ask`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ customerName, service }),
-    });
+      const data = (await res.json()) as GenerateAskResponse;
 
-    const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? 'Failed to generate messages');
+        setLoading(false);
+        return;
+      }
 
-    if (!res.ok) {
-      setError(data.error ?? 'Failed to generate messages');
+      if (data.usage) {
+        setUsage(data.usage);
+      }
+
+      setMessages({
+        email: data.email,
+        whatsapp: data.whatsapp,
+        twitter: data.twitter,
+      });
       setLoading(false);
-      return;
+    } catch {
+      setError('Failed to generate messages');
+      setLoading(false);
     }
-
-    setMessages(data as GeneratedMessages);
-    setLoading(false);
   }
 
   async function copyText(text: string, field: string) {
@@ -61,6 +94,18 @@ export function WriteAskPanel({ widgetId }: WriteAskPanelProps) {
   }
 
   if (!open) {
+    if (isLocked) {
+      return (
+        <Link
+          href={getUpgradeHref('ai_outreach')}
+          className="mb-6 inline-flex items-center gap-2 rounded-xl bg-violet-600 px-5 py-2.5 text-sm font-medium text-white transition-all duration-200 hover:bg-violet-700"
+        >
+          <Crown className="w-4 h-4" />
+          Upgrade for More AI Requests
+        </Link>
+      );
+    }
+
     return (
       <button
         type="button"
@@ -68,7 +113,9 @@ export function WriteAskPanel({ widgetId }: WriteAskPanelProps) {
         className="mb-6 px-5 py-2.5 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-xl transition-all duration-200 text-sm inline-flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
       >
         <Wand2 className="w-4 h-4" />
-        AI: Write the ask for me
+        {isPro || usage.remainingThisMonth === null
+          ? 'AI: Write the ask for me'
+          : `AI: Write the ask for me (${usage.remainingThisMonth} left)`}
       </button>
     );
   }
@@ -85,7 +132,9 @@ export function WriteAskPanel({ widgetId }: WriteAskPanelProps) {
               AI Outreach Generator
             </h3>
             <p className="text-xs text-[#7C6D9A]">
-              Generate personalized messages to request a testimonial
+              {isPro
+                ? 'Unlimited AI request messages included in Pro.'
+                : `${usage.usedThisMonth} of ${usage.limit ?? 0} free AI request messages used this month.`}
             </p>
           </div>
         </div>
@@ -98,7 +147,30 @@ export function WriteAskPanel({ widgetId }: WriteAskPanelProps) {
         </button>
       </div>
 
-      {!messages ? (
+      {!messages && isLocked ? (
+        <div className="rounded-xl border border-violet-200 bg-violet-50 p-4">
+          <p className="text-sm font-semibold text-violet-900">Starter AI limit reached</p>
+          <p className="mt-1 text-sm text-violet-800">
+            You have used all 5 AI request messages for this month. Upgrade to Pro for unlimited AI outreach.
+          </p>
+          <div className="mt-4 flex gap-3">
+            <Link
+              href={getUpgradeHref('ai_outreach')}
+              className="inline-flex items-center gap-1.5 rounded-xl bg-violet-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-violet-700"
+            >
+              <Crown className="w-4 h-4" />
+              Upgrade to Pro
+            </Link>
+            <button
+              type="button"
+              onClick={handleClose}
+              className="rounded-xl bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      ) : !messages ? (
         <form onSubmit={handleGenerate} className="space-y-4">
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-red-600 text-sm">

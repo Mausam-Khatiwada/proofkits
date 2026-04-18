@@ -9,10 +9,9 @@ import {
   type StyleMode,
   type StyleDefinition,
 } from './testimonial-styles';
+import { FREE_STYLE_LIMIT, getUpgradeHref, isStyleLockedForPlan } from '@/lib/billing/plans';
 
 type Category = 'all' | 'simple' | 'premium' | 'animated' | 'experimental';
-
-const FREE_STYLE_LIMIT = 4;
 
 interface StyleGalleryContentProps {
   widgets: { id: string; name: string; slug: string }[];
@@ -91,7 +90,7 @@ export function StyleGalleryContent({ widgets, userPlan }: StyleGalleryContentPr
         </div>
         {!isPro && (
           <Link
-            href="/settings"
+            href={getUpgradeHref('premium_styles')}
             className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white text-sm font-medium rounded-xl transition-all shadow-lg shadow-violet-500/20"
           >
             <Crown className="w-4 h-4" />
@@ -138,13 +137,13 @@ export function StyleGalleryContent({ widgets, userPlan }: StyleGalleryContentPr
 
         {/* Style Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-          {filtered.map((style, index) => {
+          {filtered.map((style) => {
             const Component = style.component;
             const mode = styleModes[style.id] ?? 'light';
             const isDark = mode === 'dark';
             // Use the global index from TESTIMONIAL_STYLES for gating
             const globalIndex = TESTIMONIAL_STYLES.findIndex((s) => s.id === style.id);
-            const isLocked = !isPro && globalIndex >= FREE_STYLE_LIMIT;
+            const isLocked = !isPro && isStyleLockedForPlan(userPlan, globalIndex);
 
             return (
               <div
@@ -220,7 +219,7 @@ export function StyleGalleryContent({ widgets, userPlan }: StyleGalleryContentPr
                         </div>
                         <p className="text-sm font-semibold text-gray-800">Pro Style</p>
                         <Link
-                          href="/settings"
+                          href={getUpgradeHref('premium_styles')}
                           className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-xs font-medium rounded-lg hover:from-violet-700 hover:to-indigo-700 transition-all shadow-md shadow-violet-500/20"
                         >
                           <Crown className="w-3.5 h-3.5" />
