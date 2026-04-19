@@ -13,7 +13,7 @@ export function StarDisplay({ rating }: StarDisplayProps) {
           className={`w-3.5 h-3.5 ${
             star <= rating
               ? 'fill-amber-400 text-amber-400'
-              : 'text-gray-200'
+              : 'text-[color:color-mix(in_srgb,var(--dash-border)_65%,var(--dash-text))] opacity-45'
           }`}
         />
       ))}

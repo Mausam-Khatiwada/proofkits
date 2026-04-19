@@ -7,7 +7,8 @@ export type PricingFeature =
   | 'premium_styles'
   | 'ai_outreach'
   | 'unlimited_widgets'
-  | 'testimonial_capacity';
+  | 'testimonial_capacity'
+  | 'testimonial_editor';
 
 type LimitValue = number | null;
 
@@ -37,12 +38,13 @@ const ENTITLEMENTS: Record<Plan, PlanEntitlements> = {
     styleCount: FREE_STYLE_LIMIT,
     features: {
       analytics: false,
-      wall_of_love: false,
+      wall_of_love: true,
       remove_badge: false,
       premium_styles: false,
       ai_outreach: true,
       unlimited_widgets: false,
       testimonial_capacity: false,
+      testimonial_editor: false,
     },
   },
   pro: {
@@ -58,6 +60,7 @@ const ENTITLEMENTS: Record<Plan, PlanEntitlements> = {
       ai_outreach: true,
       unlimited_widgets: true,
       testimonial_capacity: true,
+      testimonial_editor: true,
     },
   },
 };
@@ -70,6 +73,7 @@ const ALL_FEATURES: PricingFeature[] = [
   'ai_outreach',
   'unlimited_widgets',
   'testimonial_capacity',
+  'testimonial_editor',
 ];
 
 export interface AiUsageSnapshot {
@@ -151,8 +155,9 @@ export function getUpgradeCopy(feature: PricingFeature): { title: string; descri
       };
     case 'wall_of_love':
       return {
-        title: 'Wall of Love is a Pro feature',
-        description: 'Upgrade to Pro to publish and share your best approved testimonials in a dedicated Wall of Love view.',
+        title: 'Wall of Love',
+        description:
+          'Your approved testimonials appear on the Wall of Love page in the dashboard. Open it from the sidebar anytime.',
       };
     case 'remove_badge':
       return {
@@ -178,6 +183,12 @@ export function getUpgradeCopy(feature: PricingFeature): { title: string; descri
       return {
         title: 'Higher testimonial storage is available on Pro',
         description: 'Starter stores up to 10 testimonials. Upgrade to Pro for unlimited testimonial storage.',
+      };
+    case 'testimonial_editor':
+      return {
+        title: 'Testimonial editor is a Pro feature',
+        description:
+          'Upgrade to Pro to edit testimonial copy, compare versions, and run AI grammar, shorten, and tone tools.',
       };
     default:
       return {

@@ -376,7 +376,7 @@ export function StyleGalleryContent({ widgets, userPlan }: StyleGalleryContentPr
                 <select
                   value={selectedWidget}
                   onChange={(e) => setSelectedWidget(e.target.value)}
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all appearance-none"
+                  className="w-full appearance-none rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-muted)] px-4 py-3 text-sm text-[var(--dash-text)] transition-all focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-500"
                 >
                   {widgets.map((w) => (
                     <option key={w.id} value={w.slug}>

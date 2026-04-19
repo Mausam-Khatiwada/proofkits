@@ -72,7 +72,8 @@
   --dash-border: rgba(130, 152, 190, 0.33);
   --dash-text: #f2f6ff;
   --dash-muted: #bdcae8;
-  --dash-soft: #8fa7cf;
+  /* Slightly brighter than before so secondary metadata stays readable on surfaces */
+  --dash-soft: #b0c4eb;
   --dash-sidebar-bg: rgba(8, 14, 34, 0.88);
   --dash-sidebar-border: rgba(130, 152, 190, 0.24);
   --dash-sidebar-title: #f2f6ff;
@@ -182,6 +183,89 @@ body {
 
 .dark .dashboard-theme [class*="ring-offset-2"] {
   --tw-ring-offset-color: var(--dash-surface) !important;
+}
+
+/* Deep violet / emerald text (alerts, ghost buttons) must stay light on dark surfaces */
+.dark .dashboard-theme .text-violet-900,
+.dark .dashboard-theme .text-violet-800 {
+  color: #f5f3ff !important;
+}
+
+.dark .dashboard-theme .text-violet-700 {
+  color: #ddd6fe !important;
+}
+
+.dark .dashboard-theme .text-violet-500 {
+  color: #c4b5fd !important;
+}
+
+.dark .dashboard-theme .hover\:text-violet-700:hover {
+  color: #ede9fe !important;
+}
+
+.dark .dashboard-theme .text-emerald-700 {
+  color: #6ee7b7 !important;
+}
+
+.dark .dashboard-theme .text-emerald-800 {
+  color: #a7f3d0 !important;
+}
+
+.dark .dashboard-theme .text-cyan-600 {
+  color: #67e8f9 !important;
+}
+
+.dark .dashboard-theme .text-amber-800 {
+  color: #fde68a !important;
+}
+
+.dark .dashboard-theme .border-emerald-200 {
+  border-color: rgba(52, 211, 153, 0.5) !important;
+}
+
+.dark .dashboard-theme .border-violet-200 {
+  border-color: rgba(196, 181, 253, 0.5) !important;
+}
+
+.dark .dashboard-theme .hover\:bg-violet-100:hover {
+  background-color: rgba(167, 139, 250, 0.22) !important;
+}
+
+.dark .dashboard-theme .hover\:bg-emerald-100:hover {
+  background-color: rgba(16, 185, 129, 0.28) !important;
+}
+
+/* Empty-state / outline icons on dark cards */
+.dark .dashboard-theme .text-gray-200 {
+  color: rgba(242, 246, 255, 0.38) !important;
+}
+
+/* Native selects: readable text and surface in both themes */
+.dashboard-theme select {
+  color: var(--dash-text);
+}
+
+.dark .dashboard-theme select {
+  background-color: var(--dash-surface-muted);
+  color: var(--dash-text);
+}
+
+.dark .dashboard-theme select option {
+  background-color: #12192f;
+  color: #f2f6ff;
+}
+
+.dark .dashboard-theme .text-red-700,
+.dark .dashboard-theme .text-red-600 {
+  color: #fecaca !important;
+}
+
+.dark .dashboard-theme .bg-red-50 {
+  background-color: rgba(248, 113, 113, 0.15) !important;
+}
+
+.dark .dashboard-theme .border-red-200 {
+  border-color: rgba(252, 165, 165, 0.45) !important;
 }
 
 /* ══════════════════════════════════════════════════════════════

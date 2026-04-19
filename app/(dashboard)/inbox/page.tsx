@@ -1,12 +1,16 @@
 import { createClient } from '@/lib/supabase/server';
 import { InboxContent } from './inbox-content';
 import type { Widget, Testimonial } from '@/lib/types';
+import { getAiUsageSnapshot } from '@/lib/billing/plans';
+import { resolveBillingContextForUser } from '@/lib/billing/profile';
 
 export default async function InboxPage() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  const { profile, plan } = await resolveBillingContextForUser({ supabase, user: user!, syncPlan: true });
 
   const { data: widgets } = await supabase
     .from('widgets')
@@ -30,5 +34,12 @@ export default async function InboxPage() {
     testimonials = (data ?? []) as Testimonial[];
   }
 
-  return <InboxContent testimonials={testimonials} widgetMap={widgetMap} />;
+  return (
+    <InboxContent
+      testimonials={testimonials}
+      widgetMap={widgetMap}
+      userPlan={plan}
+      aiUsage={getAiUsageSnapshot(plan, profile)}
+    />
+  );
 }

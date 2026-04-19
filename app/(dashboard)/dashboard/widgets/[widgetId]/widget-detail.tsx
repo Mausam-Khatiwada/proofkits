@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
   ArrowLeft,
@@ -11,10 +12,13 @@ import {
   Check,
   CheckCircle,
   Crown,
+  Pencil,
+  Lock,
 } from 'lucide-react';
 import type { Widget, Testimonial } from '@/lib/types';
 import { StarDisplay } from './star-display';
 import { WriteAskPanel } from './write-ask-panel';
+import { TestimonialEditorModal } from '@/components/dashboard/TestimonialEditorModal';
 import { getInitials, getAvatarColor, timeAgo } from '@/components/dashboard/utils';
 import { getUpgradeHref, type AiUsageSnapshot } from '@/lib/billing/plans';
 
@@ -29,12 +33,18 @@ type FilterType = 'all' | 'pending' | 'approved';
 
 export function WidgetDetail({ widget, testimonials, userPlan, aiUsage }: WidgetDetailProps) {
   const router = useRouter();
+  const [aiUsageState, setAiUsageState] = useState(aiUsage);
+  const [editing, setEditing] = useState<Testimonial | null>(null);
   const [filter, setFilter] = useState<FilterType>('all');
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [showBadge, setShowBadge] = useState(widget.show_badge);
   const [savingBadge, setSavingBadge] = useState(false);
   const [badgeError, setBadgeError] = useState<string | null>(null);
   const isPro = userPlan?.toLowerCase() === 'pro';
+
+  useEffect(() => {
+    setAiUsageState(aiUsage);
+  }, [aiUsage]);
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
   const collectionUrl = `${appUrl}/collect/${widget.slug}`;
@@ -102,20 +112,20 @@ export function WidgetDetail({ widget, testimonials, userPlan, aiUsage }: Widget
   return (
     <>
       {/* Sticky header */}
-      <header className="sticky top-0 z-30 h-auto min-h-[4rem] bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] pl-14 pr-4 md:px-8 flex flex-wrap items-center justify-between gap-2 py-2">
+      <header className="sticky top-0 z-30 flex h-auto min-h-[4rem] flex-wrap items-center justify-between gap-2 border-b border-[var(--dash-border)] bg-[var(--dash-surface)] py-2 pl-14 pr-4 backdrop-blur-xl md:px-8">
         <div className="flex items-center gap-4">
           <button
             type="button"
             onClick={() => router.push('/dashboard')}
-            className="p-2 rounded-lg text-gray-400 hover:text-violet-600 hover:bg-violet-50 transition-colors"
+            className="rounded-lg p-2 text-[var(--dash-soft)] transition-colors hover:bg-violet-500/15 hover:text-violet-600"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
-            <h1 className="text-lg font-semibold text-gray-900">
+            <h1 className="text-lg font-semibold text-[var(--dash-text)]">
               {widget.name}
             </h1>
-            <p className="text-sm text-[#7C6D9A] -mt-0.5">/{widget.slug}</p>
+            <p className="-mt-0.5 text-sm text-[var(--dash-muted)]">/{widget.slug}</p>
           </div>
         </div>
         <button
@@ -239,7 +249,7 @@ export function WidgetDetail({ widget, testimonials, userPlan, aiUsage }: Widget
         </div>
 
         {/* AI Outreach Generator */}
-        <WriteAskPanel widgetId={widget.id} userPlan={userPlan} aiUsage={aiUsage} />
+        <WriteAskPanel widgetId={widget.id} userPlan={userPlan} aiUsage={aiUsageState} />
 
         {/* Filter + Testimonials */}
         <div className="bg-white rounded-2xl border border-[#EDE9FE] overflow-hidden shadow-[0_1px_3px_rgba(124,58,237,0.06)]">
@@ -284,33 +294,51 @@ export function WidgetDetail({ widget, testimonials, userPlan, aiUsage }: Widget
                     {getInitials(t.author_name)}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <span className="font-semibold text-sm text-gray-800">
+                    <div className="mb-0.5 flex flex-wrap items-center gap-2">
+                      <span className="text-sm font-semibold text-[var(--dash-text)]">
                         {t.author_name}
                       </span>
                       {t.author_role && (
-                        <span className="text-gray-400 text-xs">
+                        <span className="text-xs text-[var(--dash-muted)]">
                           {t.author_role}
                           {t.author_company ? ` at ${t.author_company}` : ''}
                         </span>
                       )}
                     </div>
                     <StarDisplay rating={t.rating} />
-                    <p className="text-sm text-gray-600 mt-1 leading-relaxed line-clamp-2">
+                    <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-[var(--dash-text)]">
                       {t.body}
                     </p>
-                    <p className="text-[10px] text-gray-300 mt-1 tracking-wide">
+                    <p className="mt-1 text-[10px] tracking-wide text-[var(--dash-soft)]">
                       {timeAgo(t.created_at)}
                     </p>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0 sm:ml-0 ml-0">
+                    {isPro ? (
+                      <button
+                        type="button"
+                        onClick={() => setEditing(t)}
+                        className="flex items-center gap-1 rounded-full border border-[var(--dash-border)] bg-[var(--dash-surface-muted)] px-3 py-1.5 text-xs font-semibold text-[var(--dash-text)] transition-colors hover:border-violet-300/50 hover:bg-violet-500/15 hover:text-violet-700"
+                      >
+                        <Pencil className="h-3 w-3" />
+                        Edit
+                      </button>
+                    ) : (
+                      <Link
+                        href={getUpgradeHref('testimonial_editor')}
+                        className="flex items-center gap-1 rounded-full border border-violet-300/50 bg-violet-500/15 px-3 py-1.5 text-xs font-semibold text-violet-800 hover:bg-violet-500/25"
+                      >
+                        <Lock className="h-3 w-3" />
+                        Edit
+                      </Link>
+                    )}
                     <button
                       type="button"
                       onClick={() => toggleApprove(t.id)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors flex items-center gap-1 ${
+                      className={`flex items-center gap-1 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors ${
                         t.approved
-                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100'
-                          : 'bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100'
+                          ? 'border-emerald-200 bg-emerald-50 text-emerald-800 hover:bg-emerald-100'
+                          : 'border-amber-200 bg-amber-50 text-amber-800 hover:bg-amber-100'
                       }`}
                     >
                       <CheckCircle className="w-3 h-3" />
@@ -330,6 +358,18 @@ export function WidgetDetail({ widget, testimonials, userPlan, aiUsage }: Widget
           )}
         </div>
       </div>
+
+      {isPro ? (
+        <TestimonialEditorModal
+          testimonial={editing}
+          open={editing !== null}
+          onClose={() => setEditing(null)}
+          userPlan={userPlan}
+          aiUsage={aiUsageState}
+          onSaved={() => router.refresh()}
+          onAiUsageChange={setAiUsageState}
+        />
+      ) : null}
     </>
   );
 }

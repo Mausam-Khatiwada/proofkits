@@ -73,7 +73,7 @@ export function QuickSend({ widgets }: QuickSendProps) {
                 setSelectedWidget(e.target.value);
                 setCopied(false);
               }}
-              className="bg-gray-50 border border-gray-100 rounded-xl px-3 py-2.5 text-sm w-full appearance-none cursor-pointer focus:ring-2 focus:ring-violet-500 focus:border-transparent outline-none"
+              className="w-full cursor-pointer rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-muted)] px-3 py-2.5 text-sm text-[var(--dash-text)] outline-none focus:border-transparent focus:ring-2 focus:ring-violet-500"
             >
               {widgets.map((w) => (
                 <option key={w.id} value={w.id}>
@@ -92,7 +92,7 @@ export function QuickSend({ widgets }: QuickSendProps) {
               <input
                 readOnly
                 value={collectionUrl}
-                className="flex-1 bg-gray-50 border border-gray-100 rounded-xl px-3 py-2.5 text-sm text-gray-600 min-w-0"
+                className="min-w-0 flex-1 rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-muted)] px-3 py-2.5 text-sm text-[var(--dash-muted)]"
               />
               <button
                 type="button"

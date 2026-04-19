@@ -190,7 +190,11 @@ export function SettingsContent({ profile, upgradeFeature = null }: SettingsCont
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-violet-500" />
-                    Unlimited AI outreach, analytics, and Wall of Love
+                    Unlimited AI outreach and analytics
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-violet-500" />
+                    Testimonial editor with AI refine and version compare
                   </li>
                 </ul>
               </div>

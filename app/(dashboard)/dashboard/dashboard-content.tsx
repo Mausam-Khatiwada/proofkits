@@ -239,7 +239,7 @@ export function DashboardContent({
 
         {/* Bottom Row */}
         <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-2">
-          <WallOfLove testimonials={testimonials} userPlan={normalizedPlan} />
+          <WallOfLove testimonials={testimonials} />
           <ApprovalRate total={totalTestimonials} approved={totalApproved} userPlan={normalizedPlan} />
         </div>
       </div>

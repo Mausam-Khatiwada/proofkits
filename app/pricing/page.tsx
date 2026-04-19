@@ -11,6 +11,7 @@ const starterIncluded = [
   'Public collection page',
   { text: 'Embeddable widget', highlight: '', badge: 'with badge' },
   { text: '5 AI request messages', highlight: '5 AI request messages', suffix: ' / month' },
+  { text: 'Wall of Love', highlight: 'Wall of Love', suffix: ' page — approved testimonials' },
 ];
 
 const starterNotIncluded = [
@@ -26,7 +27,11 @@ const proFeatures = [
   { text: 'Remove "Powered by" badge', highlight: 'Remove "Powered by" badge' },
   { text: 'Unlimited AI', highlight: 'Unlimited AI', suffix: ' request messages' },
   { text: 'Analytics', highlight: 'Analytics', suffix: ' — requests, opens, responses' },
-  { text: 'Wall of Love', highlight: 'Wall of Love', suffix: ' page — shareable URL' },
+  {
+    text: 'Testimonial editor — manual edits plus AI grammar, shorten, and tone tools',
+    highlight: 'Testimonial editor',
+    suffix: ' — compare versions before publishing',
+  },
   { text: 'Social share cards', highlight: 'Social share cards', suffix: ' — Twitter, LinkedIn' },
   'Priority email support',
 ];

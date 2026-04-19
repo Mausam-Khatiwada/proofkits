@@ -1,17 +1,30 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Inbox, CheckCircle, Trash2, Star } from 'lucide-react';
+import { Inbox, CheckCircle, Trash2, Star, Pencil, Lock } from 'lucide-react';
 import type { Testimonial } from '@/lib/types';
+import { getUpgradeHref, type AiUsageSnapshot } from '@/lib/billing/plans';
+import { TestimonialEditorModal } from '@/components/dashboard/TestimonialEditorModal';
 import { getInitials, getAvatarColor, timeAgo } from '@/components/dashboard/utils';
 
 interface InboxContentProps {
   testimonials: Testimonial[];
   widgetMap: Record<string, string>;
+  userPlan: string;
+  aiUsage: AiUsageSnapshot;
 }
 
-export function InboxContent({ testimonials, widgetMap }: InboxContentProps) {
+export function InboxContent({ testimonials, widgetMap, userPlan, aiUsage }: InboxContentProps) {
   const router = useRouter();
+  const isPro = userPlan?.toLowerCase() === 'pro';
+  const [editing, setEditing] = useState<Testimonial | null>(null);
+  const [aiUsageState, setAiUsageState] = useState(aiUsage);
+
+  useEffect(() => {
+    setAiUsageState(aiUsage);
+  }, [aiUsage]);
 
   async function handleApprove(id: string) {
     await fetch(`/api/testimonials/${id}/approve`, { method: 'PATCH' });
@@ -26,10 +39,10 @@ export function InboxContent({ testimonials, widgetMap }: InboxContentProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] pl-14 pr-4 md:px-8 flex items-center justify-between">
+      <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-[var(--dash-border)] bg-[var(--dash-surface)] pl-14 pr-4 backdrop-blur-xl md:px-8">
         <div>
-          <h1 className="text-lg font-semibold text-gray-900">Inbox</h1>
-          <p className="text-sm text-[#7C6D9A] -mt-0.5">
+          <h1 className="text-lg font-semibold text-[var(--dash-text)]">Inbox</h1>
+          <p className="-mt-0.5 text-sm text-[var(--dash-muted)]">
             {testimonials.length} testimonial{testimonials.length !== 1 ? 's' : ''} awaiting review
           </p>
         </div>
@@ -61,14 +74,14 @@ export function InboxContent({ testimonials, widgetMap }: InboxContentProps) {
                     {getInitials(t.author_name)}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold text-sm text-gray-800">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-sm font-semibold text-[var(--dash-text)]">
                         {t.author_name}
                       </span>
-                      <span className="text-[10px] rounded-full px-2 py-0.5 bg-amber-50 text-amber-700 border border-amber-200">
+                      <span className="rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-800 dark:border-amber-300/40">
                         Pending
                       </span>
-                      <span className="text-xs text-gray-300">
+                      <span className="text-xs text-[var(--dash-muted)]">
                         {widgetMap[t.widget_id] ?? 'Unknown widget'}
                       </span>
                     </div>
@@ -79,31 +92,49 @@ export function InboxContent({ testimonials, widgetMap }: InboxContentProps) {
                           className={`w-3 h-3 ${
                             i <= t.rating
                               ? 'fill-amber-400 text-amber-400'
-                              : 'text-gray-200'
+                              : 'text-[color:color-mix(in_srgb,var(--dash-soft)_55%,transparent)]'
                           }`}
                         />
                       ))}
                     </div>
-                    <p className="text-sm text-gray-600 leading-relaxed mt-1">
+                    <p className="mt-1 text-sm leading-relaxed text-[var(--dash-text)]">
                       {t.body}
                     </p>
                     {(t.author_role || t.author_company) && (
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="mt-1 text-xs text-[var(--dash-muted)]">
                         {[t.author_role, t.author_company]
                           .filter(Boolean)
                           .join(' at ')}
                       </p>
                     )}
-                    <p className="text-[10px] text-gray-300 mt-1 tracking-wide">
+                    <p className="mt-1 text-[10px] tracking-wide text-[var(--dash-soft)]">
                       {timeAgo(t.created_at)}
                     </p>
                   </div>
                   </div>
                   <div className="flex items-center sm:items-start gap-2 sm:mt-0 pt-2 sm:pt-0 flex-shrink-0">
+                    {isPro ? (
+                      <button
+                        type="button"
+                        onClick={() => setEditing(t)}
+                        className="flex items-center gap-1.5 rounded-xl border border-[var(--dash-border)] bg-[var(--dash-surface-muted)] px-3 py-2 text-xs font-semibold text-[var(--dash-text)] transition-colors hover:border-violet-300/50 hover:bg-violet-500/15 hover:text-violet-700"
+                      >
+                        <Pencil className="h-3.5 w-3.5" />
+                        Edit
+                      </button>
+                    ) : (
+                      <Link
+                        href={getUpgradeHref('testimonial_editor')}
+                        className="flex items-center gap-1.5 rounded-xl border border-violet-300/50 bg-violet-500/15 px-3 py-2 text-xs font-semibold text-violet-800 hover:bg-violet-500/25"
+                      >
+                        <Lock className="h-3.5 w-3.5" />
+                        Edit
+                      </Link>
+                    )}
                     <button
                       type="button"
                       onClick={() => handleApprove(t.id)}
-                      className="px-4 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5 border border-emerald-200"
+                      className="flex items-center gap-1.5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-xs font-semibold text-emerald-800 transition-colors hover:bg-emerald-100"
                     >
                       <CheckCircle className="w-3.5 h-3.5" />
                       Approve
@@ -122,6 +153,18 @@ export function InboxContent({ testimonials, widgetMap }: InboxContentProps) {
           </div>
         )}
       </div>
+
+      {isPro ? (
+        <TestimonialEditorModal
+          testimonial={editing}
+          open={editing !== null}
+          onClose={() => setEditing(null)}
+          userPlan={userPlan}
+          aiUsage={aiUsageState}
+          onSaved={() => router.refresh()}
+          onAiUsageChange={setAiUsageState}
+        />
+      ) : null}
     </>
   );
 }
