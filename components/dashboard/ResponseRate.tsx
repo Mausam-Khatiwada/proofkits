@@ -21,7 +21,7 @@ export function ResponseRate() {
   }, []);
 
   return (
-    <div className="bg-white rounded-2xl border border-[#EDE9FE] p-5 hover:shadow-[0_4px_20px_rgba(124,58,237,0.08)] transition-shadow duration-200">
+    <div className="dash-glass p-5 transition-shadow duration-300 hover:-translate-y-0.5">
       <h3 className="font-semibold text-sm text-gray-800">Response Rate</h3>
       <p className="text-4xl font-bold text-violet-600 mt-3 tabular-nums">73%</p>
       <p className="text-xs text-emerald-600">↑ 8% from last month</p>

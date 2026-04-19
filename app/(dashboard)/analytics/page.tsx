@@ -117,7 +117,7 @@ export default async function AnalyticsPage() {
             return (
               <div
                 key={s.label}
-                className="bg-white rounded-2xl p-5 border border-[#EDE9FE] shadow-[0_1px_3px_rgba(124,58,237,0.06)] hover:shadow-[0_4px_20px_rgba(124,58,237,0.08)] transition-shadow duration-200"
+                className="dash-glass p-5 transition-shadow duration-300 hover:-translate-y-0.5"
               >
                 <div className={`${s.iconBg} rounded-xl p-2.5 w-fit`}>
                   <Icon className={`w-5 h-5 ${s.iconColor}`} />
@@ -133,7 +133,7 @@ export default async function AnalyticsPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {/* Rating Distribution */}
-          <div className="bg-white rounded-2xl border border-[#EDE9FE] p-5 shadow-[0_1px_3px_rgba(124,58,237,0.06)]">
+          <div className="dash-glass p-5">
             <h3 className="text-sm font-semibold text-gray-800 mb-4">
               Rating Distribution
             </h3>
@@ -160,7 +160,7 @@ export default async function AnalyticsPage() {
           </div>
 
           {/* Approval Rate */}
-          <div className="bg-white rounded-2xl border border-[#EDE9FE] p-5 shadow-[0_1px_3px_rgba(124,58,237,0.06)]">
+          <div className="dash-glass p-5">
             <h3 className="text-sm font-semibold text-gray-800 mb-4">
               Approval Rate
             </h3>
@@ -215,7 +215,7 @@ export default async function AnalyticsPage() {
 
         {/* Per-widget breakdown */}
         {widgetStats.length > 0 && (
-          <div className="bg-white rounded-2xl border border-[#EDE9FE] p-5 mt-5 shadow-[0_1px_3px_rgba(124,58,237,0.06)]">
+          <div className="dash-glass mt-5 p-5">
             <h3 className="text-sm font-semibold text-gray-800 mb-4">
               Performance by Widget
             </h3>

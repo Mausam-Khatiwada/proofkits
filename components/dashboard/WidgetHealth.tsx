@@ -17,7 +17,7 @@ const widgetColors = [
 
 export function WidgetHealth({ widgets }: WidgetHealthProps) {
   return (
-    <div className="bg-white rounded-2xl border border-[#EDE9FE] p-5 hover:shadow-[0_4px_20px_rgba(124,58,237,0.08)] transition-shadow duration-200">
+    <div className="dash-glass p-5 transition-shadow duration-300">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold text-gray-800">Your Widgets</h3>
         <span className="text-xs text-gray-400">

@@ -106,7 +106,7 @@ export function SettingsContent({ profile, upgradeFeature = null }: SettingsCont
         ) : null}
 
         {/* Profile Section */}
-        <div className="bg-white rounded-2xl border border-[#EDE9FE] p-6 mb-5 shadow-[0_1px_3px_rgba(124,58,237,0.06)] hover:shadow-[0_4px_20px_rgba(124,58,237,0.08)] transition-shadow duration-200">
+        <div className="dash-glass mb-5 p-6 transition-shadow duration-300">
           <h2 className="text-sm font-semibold text-gray-800 mb-4 flex items-center gap-2">
             <User className="w-4 h-4 text-violet-500" />
             Profile
@@ -154,7 +154,7 @@ export function SettingsContent({ profile, upgradeFeature = null }: SettingsCont
         </div>
 
         {/* Plan Section */}
-        <div className="bg-white rounded-2xl border border-[#EDE9FE] p-6 shadow-[0_1px_3px_rgba(124,58,237,0.06)] hover:shadow-[0_4px_20px_rgba(124,58,237,0.08)] transition-shadow duration-200">
+        <div className="dash-glass p-6 transition-shadow duration-300">
           <h2 className="text-sm font-semibold text-gray-800 mb-4 flex items-center gap-2">
             <CreditCard className="w-4 h-4 text-violet-500" />
             Plan &amp; Billing

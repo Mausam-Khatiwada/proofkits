@@ -142,7 +142,7 @@ export function WidgetDetail({ widget, testimonials, userPlan, aiUsage }: Widget
       <div className="px-4 py-6 md:px-8">
         {/* Collection URL + Embed Code */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-6">
-          <div className="bg-white rounded-2xl border border-[#EDE9FE] p-5 shadow-[0_1px_3px_rgba(124,58,237,0.06)]">
+          <div className="dash-glass p-5">
             <h3 className="text-xs font-medium text-[#7C6D9A] uppercase tracking-wide mb-3 flex items-center gap-1.5">
               <LinkIcon className="w-3.5 h-3.5" />
               Public Collection URL
@@ -170,7 +170,7 @@ export function WidgetDetail({ widget, testimonials, userPlan, aiUsage }: Widget
               </button>
             </div>
           </div>
-          <div className="bg-white rounded-2xl border border-[#EDE9FE] p-5 shadow-[0_1px_3px_rgba(124,58,237,0.06)]">
+          <div className="dash-glass p-5">
             <h3 className="text-xs font-medium text-[#7C6D9A] uppercase tracking-wide mb-3 flex items-center gap-1.5">
               <Code2 className="w-3.5 h-3.5" />
               Embed Code
@@ -196,7 +196,7 @@ export function WidgetDetail({ widget, testimonials, userPlan, aiUsage }: Widget
               </button>
             </div>
           </div>
-          <div className="bg-white rounded-2xl border border-[#EDE9FE] p-5 shadow-[0_1px_3px_rgba(124,58,237,0.06)]">
+          <div className="dash-glass p-5">
             <h3 className="text-xs font-medium text-[#7C6D9A] uppercase tracking-wide mb-3">
               Embed Branding
             </h3>
@@ -252,7 +252,7 @@ export function WidgetDetail({ widget, testimonials, userPlan, aiUsage }: Widget
         <WriteAskPanel widgetId={widget.id} userPlan={userPlan} aiUsage={aiUsageState} />
 
         {/* Filter + Testimonials */}
-        <div className="bg-white rounded-2xl border border-[#EDE9FE] overflow-hidden shadow-[0_1px_3px_rgba(124,58,237,0.06)]">
+        <div className="dash-glass overflow-hidden">
           <div className="px-4 py-4 md:px-6 border-b border-gray-50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
             <h2 className="text-sm font-semibold text-gray-800">
               Testimonials ({filtered.length})

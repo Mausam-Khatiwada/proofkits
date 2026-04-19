@@ -16,7 +16,8 @@ import {
   Menu,
   X,
   Palette,
-  Lock
+  Lock,
+  Zap,
 } from 'lucide-react';
 import { getInitials, getAvatarColor } from '@/components/dashboard/utils';
 import { canAccessPricingFeature, getUpgradeHref, type PricingFeature } from '@/lib/billing/plans';
@@ -92,7 +93,7 @@ export function Sidebar({ email, plan, fullName, pendingCount }: SidebarProps) {
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="fixed top-3 left-4 z-40 md:hidden p-2 rounded-lg bg-[var(--dash-surface)] border border-[var(--dash-border)] text-[var(--dash-text)] shadow-sm"
+        className="fixed left-4 top-3 z-40 rounded-xl border border-[var(--dash-border)] bg-[color-mix(in_srgb,var(--dash-surface)_85%,transparent)] p-2 text-[var(--dash-text)] shadow-lg backdrop-blur-xl md:hidden"
       >
         <Menu className="w-5 h-5" />
       </button>
@@ -104,14 +105,16 @@ export function Sidebar({ email, plan, fullName, pendingCount }: SidebarProps) {
         />
       )}
 
-      <aside className={`fixed left-0 top-0 z-50 flex h-full w-[220px] flex-col border-r border-[var(--dash-sidebar-border)] bg-[var(--dash-sidebar-bg)] transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+      <aside
+        className={`fixed left-0 top-0 z-50 flex h-full w-[min(100%,280px)] sm:w-[240px] flex-col border-r border-[var(--dash-sidebar-border)] bg-[var(--dash-sidebar-bg)] shadow-[4px_0_48px_-12px_rgba(0,0,0,0.35)] backdrop-blur-2xl transition-transform duration-300 dark:shadow-[4px_0_60px_-8px_rgba(0,0,0,0.55)] ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
+      >
         {/* Logo */}
         <div className="px-5 pt-6 pb-4 flex justify-between items-center">
           <Link href="/dashboard" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-cyan-600 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">P</span>
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 via-violet-500 to-cyan-500 shadow-[0_8px_24px_-6px_rgba(91,61,245,0.55)] ring-1 ring-white/20">
+              <span className="text-sm font-bold text-white">P</span>
             </div>
-            <span className="font-semibold text-base text-[var(--dash-sidebar-title)]">Proofengine</span>
+            <span className="text-base font-semibold tracking-tight text-[var(--dash-sidebar-title)]">Proofengine</span>
           </Link>
           <button onClick={() => setIsOpen(false)} className="md:hidden text-[var(--dash-sidebar-label)] hover:text-[var(--dash-text)]">
             <X className="w-5 h-5" />
@@ -136,10 +139,10 @@ export function Sidebar({ email, plan, fullName, pendingCount }: SidebarProps) {
                   key={`${group.label}-${item.label}`}
                   href={href}
                   onClick={() => setIsOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all duration-150 cursor-pointer mb-0.5 ${
+                  className={`mb-0.5 flex cursor-pointer items-center gap-3 rounded-2xl px-3 py-2.5 text-sm transition-all duration-200 ${
                     active
-                      ? 'bg-[var(--dash-sidebar-link-active-bg)] text-[var(--dash-sidebar-link-active-text)] shadow-[inset_2px_0_0_var(--dash-sidebar-link-active-bar)]'
-                      : 'text-[var(--dash-sidebar-link)] hover:text-[var(--dash-sidebar-link-hover)] hover:bg-[var(--dash-sidebar-link-hover-bg)]'
+                      ? 'bg-[var(--dash-sidebar-link-active-bg)] text-[var(--dash-sidebar-link-active-text)] shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] ring-1 ring-white/10'
+                      : 'text-[var(--dash-sidebar-link)] hover:bg-[var(--dash-sidebar-link-hover-bg)] hover:text-[var(--dash-sidebar-link-hover)]'
                   }`}
                 >
                   <Icon className="w-[18px] h-[18px] flex-shrink-0" />
@@ -160,6 +163,28 @@ export function Sidebar({ email, plan, fullName, pendingCount }: SidebarProps) {
           </div>
         ))}
       </nav>
+
+      {plan !== 'pro' && (
+        <div className="px-3 pb-2">
+          <Link
+            href={getUpgradeHref('unlimited_widgets')}
+            onClick={() => setIsOpen(false)}
+            className="dash-glass group block rounded-2xl p-3.5 transition-transform duration-200 hover:scale-[1.02]"
+          >
+            <div className="flex items-start gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-amber-400 to-orange-600 shadow-lg ring-1 ring-white/25">
+                <Zap className="h-5 w-5 text-white" />
+              </div>
+              <div className="min-w-0 pt-0.5">
+                <p className="text-xs font-bold tracking-wide text-[var(--dash-text)]">Upgrade to Pro</p>
+                <p className="mt-1 text-[11px] leading-snug text-[var(--dash-muted)]">
+                  Unlimited widgets, testimonial editor, analytics & more.
+                </p>
+              </div>
+            </div>
+          </Link>
+        </div>
+      )}
 
       {/* User section */}
       <div className="mt-auto">

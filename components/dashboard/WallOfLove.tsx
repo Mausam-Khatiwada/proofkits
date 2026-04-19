@@ -13,7 +13,7 @@ export function WallOfLove({ testimonials }: WallOfLoveProps) {
     .slice(0, 3);
 
   return (
-    <div className="bg-white rounded-2xl border border-[#EDE9FE] p-5 hover:shadow-[0_4px_20px_rgba(124,58,237,0.08)] transition-shadow duration-200">
+    <div className="dash-glass p-5 transition-shadow duration-300">
       <h3 className="font-semibold text-sm text-gray-800">Wall of Love ❤️</h3>
       <p className="text-xs text-gray-400">Your highest rated</p>
 

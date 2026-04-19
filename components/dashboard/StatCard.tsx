@@ -60,7 +60,7 @@ export function StatCard({
     decimals > 0 ? displayValue.toFixed(decimals) : displayValue.toLocaleString();
 
   return (
-    <div className="bg-white rounded-2xl p-5 border border-[#EDE9FE] shadow-[0_1px_3px_rgba(124,58,237,0.06)] hover:shadow-[0_4px_20px_rgba(124,58,237,0.08)] transition-shadow duration-200">
+    <div className="dash-glass p-5 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5">
       <div className="flex items-start justify-between">
         <div className={`${iconBg} rounded-xl p-2.5`}>
           <Icon className={`w-5 h-5 ${iconColor}`} />

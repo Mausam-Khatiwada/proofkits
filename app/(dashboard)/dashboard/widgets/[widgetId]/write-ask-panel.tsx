@@ -174,7 +174,7 @@ export function WriteAskPanel({ widgetId, userPlan, aiUsage }: WriteAskPanelProp
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-violet-200 p-6 mb-6 shadow-[0_1px_3px_rgba(124,58,237,0.06)]">
+    <div className="dash-glass mb-6 border border-violet-200/30 p-6 dark:border-violet-500/20">
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center">

@@ -49,18 +49,16 @@ export function WidgetsContent({ widgets, userPlan }: WidgetsContentProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-sm border-b border-[#EDE9FE] pl-14 pr-4 md:px-8 flex items-center justify-between">
-        <div>
-          <h1 className="text-lg font-semibold text-gray-900">Widgets</h1>
-          <p className="text-sm text-[#7C6D9A] -mt-0.5">
-            Manage your collection forms
-          </p>
+      <header className="sticky top-0 z-30 flex min-h-[4rem] items-center justify-between gap-3 border-b border-[var(--dash-border)] bg-[color-mix(in_srgb,var(--dash-surface)_78%,transparent)] py-2 pl-14 pr-3 backdrop-blur-2xl md:px-8">
+        <div className="min-w-0">
+          <h1 className="text-lg font-semibold tracking-tight text-[var(--dash-text)]">Widgets</h1>
+          <p className="-mt-0.5 text-sm text-[var(--dash-muted)]">Manage your collection forms</p>
         </div>
         <button
           type="button"
           onClick={() => setShowForm(true)}
           disabled={hasReachedWidgetLimit}
-          className="bg-violet-600 hover:bg-violet-700 text-white text-sm font-medium px-4 py-2 rounded-xl flex items-center gap-2 transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-60"
+          className="dash-btn-primary flex shrink-0 items-center gap-2 px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-60"
         >
           <Plus className="w-4 h-4" />
           New Widget
@@ -69,15 +67,12 @@ export function WidgetsContent({ widgets, userPlan }: WidgetsContentProps) {
 
       <div className="px-4 py-6 md:px-8">
         {hasReachedWidgetLimit && (
-          <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-violet-200 bg-violet-50 px-4 py-4 text-sm text-violet-900 md:flex-row md:items-center md:justify-between">
+          <div className="dash-glass mb-5 flex flex-col gap-3 px-4 py-4 text-sm text-violet-900 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="font-semibold">Starter includes 1 widget.</p>
               <p className="text-violet-700">Upgrade to Pro to create unlimited widgets and keep growing your library.</p>
             </div>
-            <Link
-              href={widgetUpgradeHref}
-              className="inline-flex items-center justify-center rounded-xl bg-violet-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-violet-700"
-            >
+            <Link href={widgetUpgradeHref} className="dash-btn-primary inline-flex shrink-0 items-center justify-center px-4 py-2 text-sm">
               Upgrade to Pro
             </Link>
           </div>
@@ -92,10 +87,7 @@ export function WidgetsContent({ widgets, userPlan }: WidgetsContentProps) {
               setError(null);
             }}
           >
-            <div
-              className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-[#EDE9FE]"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className="dash-glass w-full max-w-md p-6 shadow-2xl" onClick={(e) => e.stopPropagation()}>
               <h2 className="text-lg font-semibold text-gray-900 mb-1">
                 Create New Widget
               </h2>
@@ -119,7 +111,7 @@ export function WidgetsContent({ widgets, userPlan }: WidgetsContentProps) {
                   <button
                     type="submit"
                     disabled={creating}
-                    className="flex-1 px-4 py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-xl transition-colors disabled:opacity-50"
+                    className="dash-btn-primary flex-1 px-4 py-3 disabled:opacity-50"
                   >
                     {creating ? 'Creating...' : 'Create Widget'}
                   </button>
@@ -140,7 +132,7 @@ export function WidgetsContent({ widgets, userPlan }: WidgetsContentProps) {
         )}
 
         {widgets.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-[#EDE9FE] py-16 flex flex-col items-center justify-center text-center">
+          <div className="dash-glass flex flex-col items-center justify-center px-6 py-16 text-center">
             <Layers className="w-12 h-12 text-violet-200 mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-1">
               No widgets yet
@@ -148,15 +140,12 @@ export function WidgetsContent({ widgets, userPlan }: WidgetsContentProps) {
             <p className="text-sm text-[#7C6D9A] max-w-sm mb-6">
               Widgets are the collection forms you share with your customers to gather testimonials.
             </p>
-            <button
-              onClick={() => setShowForm(true)}
-              className="bg-violet-600 hover:bg-violet-700 text-white font-medium px-5 py-2.5 rounded-xl transition-colors"
-            >
+            <button type="button" onClick={() => setShowForm(true)} className="dash-btn-primary px-5 py-2.5 font-medium">
               Create your first widget
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {widgets.map((widget) => {
               const pendingCount = widget.testimonial_count - widget.approved_count;
               
@@ -164,7 +153,7 @@ export function WidgetsContent({ widgets, userPlan }: WidgetsContentProps) {
                 <Link
                   key={widget.id}
                   href={`/dashboard/widgets/${widget.id}`}
-                  className="bg-white rounded-2xl border border-[#EDE9FE] p-5 hover:shadow-[0_4px_20px_rgba(124,58,237,0.08)] transition-all duration-200 group flex flex-col"
+                  className="dash-glass group flex flex-col p-5 transition-all duration-300 hover:-translate-y-1"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center">

@@ -63,8 +63,8 @@ export function TestimonialFeed({ testimonials }: TestimonialFeedProps) {
   // Empty state
   if (testimonials.length === 0) {
     return (
-      <div className="bg-white rounded-2xl border border-[#EDE9FE] overflow-hidden">
-        <div className="px-6 pt-5 pb-4 border-b border-gray-50">
+      <div className="dash-glass overflow-hidden">
+        <div className="dash-glass-header px-6 pb-4 pt-5">
           <h2 className="font-semibold text-gray-800">Recent Testimonials</h2>
         </div>
         <div className="py-16 flex flex-col items-center justify-center">
@@ -81,9 +81,9 @@ export function TestimonialFeed({ testimonials }: TestimonialFeedProps) {
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-[#EDE9FE] overflow-hidden hover:shadow-[0_4px_20px_rgba(124,58,237,0.08)] transition-shadow duration-200">
+    <div className="dash-glass overflow-hidden transition-shadow duration-300">
       {/* Header with tabs */}
-      <div className="px-4 pt-5 pb-4 md:px-6 border-b border-gray-50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+      <div className="dash-glass-header flex flex-col gap-2 px-4 pb-4 pt-5 sm:flex-row sm:items-center sm:justify-between md:px-6">
         <h2 className="font-semibold text-gray-800">Recent Testimonials</h2>
         <div className="flex items-center gap-1">
           {tabs.map((tab) => (

@@ -1,4 +1,4 @@
-import { Bell, Plus } from 'lucide-react';
+import { Bell, Plus, Search } from 'lucide-react';
 import Link from 'next/link';
 import { ThemeToggle } from '../theme/theme-toggle';
 
@@ -24,42 +24,54 @@ export function TopHeader({
     hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-[var(--dash-border)] bg-[var(--dash-surface)] pl-14 pr-4 md:px-8 backdrop-blur-xl">
-      <div>
-        <h1 className="text-lg font-semibold text-[var(--dash-text)]">Dashboard</h1>
+    <header className="sticky top-0 z-30 flex flex-wrap items-center gap-3 border-b border-[var(--dash-border)] bg-[color-mix(in_srgb,var(--dash-surface)_78%,transparent)] py-3 pl-14 pr-3 backdrop-blur-2xl sm:min-h-[4rem] sm:flex-nowrap sm:py-2 md:px-8">
+      <div className="min-w-0 flex-1 sm:flex-none">
+        <h1 className="text-lg font-semibold tracking-tight text-[var(--dash-text)]">Dashboard</h1>
         <p className="-mt-0.5 text-sm text-[var(--dash-muted)]">
-          {greeting}, {firstName} 👋
+          {greeting}, {firstName}
         </p>
       </div>
-      <div className="flex items-center gap-1.5 sm:gap-2">
-        <ThemeToggle className="border-[var(--dash-border)] bg-[var(--dash-surface)] text-[var(--dash-text)] hover:bg-[var(--dash-surface-muted)]" />
+
+      <div className="order-last hidden min-w-0 flex-1 basis-full px-0 lg:order-none lg:mx-4 lg:block lg:max-w-md lg:basis-auto">
+        <div
+          className="dash-glass flex items-center gap-2.5 rounded-full border px-4 py-2.5 text-sm text-[var(--dash-muted)]"
+          role="search"
+          aria-label="Search (coming soon)"
+        >
+          <Search className="h-4 w-4 shrink-0 opacity-60" aria-hidden />
+          <span className="truncate">Search widgets, testimonials…</span>
+        </div>
+      </div>
+
+      <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2">
+        <ThemeToggle className="border-[var(--dash-border)] bg-[color-mix(in_srgb,var(--dash-surface)_70%,transparent)] text-[var(--dash-text)] hover:bg-[var(--dash-surface-muted)]" />
         <Link
           href="/inbox"
-          className="relative rounded-lg p-2 text-[var(--dash-muted)] transition-colors hover:text-violet-600"
+          className="relative rounded-xl p-2 text-[var(--dash-muted)] transition-colors hover:bg-white/5 hover:text-violet-600"
         >
-          <Bell className="w-5 h-5" />
+          <Bell className="h-5 w-5" />
           {pendingCount > 0 && (
-            <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 rounded-full text-white text-[9px] font-bold flex items-center justify-center">
+            <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-br from-rose-500 to-orange-500 text-[9px] font-bold text-white shadow-sm">
               {pendingCount > 9 ? '9+' : pendingCount}
             </span>
           )}
         </Link>
-        <div className="mx-1 h-5 w-px bg-[var(--dash-border)] hidden sm:block" />
+        <div className="mx-0.5 hidden h-6 w-px bg-[var(--dash-border)] sm:block" />
         {canCreateWidget ? (
           <button
             type="button"
             onClick={onNewWidget}
-            className="bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-700 hover:to-cyan-700 text-white text-sm font-medium px-3 py-2 sm:px-4 rounded-xl flex items-center gap-1.5 sm:gap-2 transition-colors duration-150"
+            className="dash-btn-primary flex items-center gap-1.5 px-3 py-2 text-sm sm:px-4"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="h-4 w-4" />
             <span className="hidden sm:inline">New Widget</span>
           </button>
         ) : (
           <Link
             href={upgradeHref}
-            className="bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-700 hover:to-cyan-700 text-white text-sm font-medium px-3 py-2 sm:px-4 rounded-xl flex items-center gap-1.5 sm:gap-2 transition-colors duration-150"
+            className="dash-btn-primary flex items-center gap-1.5 px-3 py-2 text-sm sm:px-4"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="h-4 w-4" />
             <span className="hidden sm:inline">Upgrade for More</span>
           </Link>
         )}

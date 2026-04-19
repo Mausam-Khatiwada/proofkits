@@ -40,7 +40,7 @@ export default async function EmbedLibraryPage() {
 
       <div className="px-4 py-6 md:px-8">
         {!widgets || widgets.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-[#EDE9FE] p-16 text-center">
+          <div className="dash-glass p-16 text-center">
             <Code2 className="w-12 h-12 text-violet-200 mx-auto" />
             <p className="text-gray-400 font-medium mt-3">
               No widgets created yet
@@ -59,7 +59,7 @@ export default async function EmbedLibraryPage() {
               return (
                 <div
                   key={w.id}
-                  className="bg-white rounded-2xl border border-[#EDE9FE] p-6 shadow-[0_1px_3px_rgba(124,58,237,0.06)] hover:shadow-[0_4px_20px_rgba(124,58,237,0.08)] transition-shadow duration-200"
+                  className="dash-glass p-6 transition-shadow duration-300 hover:-translate-y-0.5"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-9 h-9 rounded-lg bg-violet-500 flex items-center justify-center">

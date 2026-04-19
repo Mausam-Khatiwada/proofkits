@@ -50,7 +50,7 @@ export function InboxContent({ testimonials, widgetMap, userPlan, aiUsage }: Inb
 
       <div className="px-4 py-6 md:px-8">
         {testimonials.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-[#EDE9FE] p-16 text-center">
+          <div className="dash-glass p-16 text-center">
             <Inbox className="w-12 h-12 text-violet-200 mx-auto" />
             <p className="text-gray-400 font-medium mt-3">Inbox zero! 🎉</p>
             <p className="text-sm text-gray-300 mt-1">
@@ -58,7 +58,7 @@ export function InboxContent({ testimonials, widgetMap, userPlan, aiUsage }: Inb
             </p>
           </div>
         ) : (
-          <div className="bg-white rounded-2xl border border-[#EDE9FE] overflow-hidden shadow-[0_1px_3px_rgba(124,58,237,0.06)]">
+          <div className="dash-glass overflow-hidden">
             <div className="divide-y divide-gray-50">
               {testimonials.map((t) => (
                 <div

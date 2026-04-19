@@ -148,14 +148,12 @@ export function StyleGalleryContent({ widgets, userPlan }: StyleGalleryContentPr
             return (
               <div
                 key={style.id}
-                className={`bg-white rounded-2xl border overflow-hidden shadow-[0_1px_3px_rgba(124,58,237,0.06)] transition-all duration-300 group style-gallery-card ${
-                  isLocked
-                    ? 'border-gray-200/60 opacity-95'
-                    : 'border-[#EDE9FE] hover:shadow-[0_8px_30px_rgba(124,58,237,0.1)]'
+                className={`dash-glass overflow-hidden transition-all duration-300 group style-gallery-card ${
+                  isLocked ? 'opacity-95' : 'hover:-translate-y-0.5'
                 }`}
               >
                 {/* Card Header */}
-                <div className="px-5 py-4 border-b border-[#EDE9FE] flex items-center justify-between">
+                <div className="dash-glass-header px-5 py-4 flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <h3 className="text-sm font-semibold text-gray-800">
                       {style.name}
@@ -231,7 +229,7 @@ export function StyleGalleryContent({ widgets, userPlan }: StyleGalleryContentPr
                 </div>
 
                 {/* Card Footer */}
-                <div className="px-5 py-3 border-t border-[#EDE9FE] flex items-center justify-between bg-white">
+                <div className="border-t border-[color-mix(in_srgb,var(--dash-border)_70%,transparent)] px-5 py-3 flex items-center justify-between bg-white/40 dark:bg-white/[0.04]">
                   <p className="text-xs text-gray-400 max-w-[60%] truncate">
                     {style.description}
                   </p>
@@ -273,7 +271,7 @@ export function StyleGalleryContent({ widgets, userPlan }: StyleGalleryContentPr
 
         {/* Empty State */}
         {filtered.length === 0 && (
-          <div className="bg-white rounded-2xl border border-[#EDE9FE] p-16 text-center">
+          <div className="dash-glass p-16 text-center">
             <Sparkles className="w-12 h-12 text-violet-200 mx-auto" />
             <p className="text-gray-400 font-medium mt-3">
               No styles in this category yet
@@ -346,7 +344,7 @@ export function StyleGalleryContent({ widgets, userPlan }: StyleGalleryContentPr
           onClick={() => setEmbedModal(null)}
         >
           <div
-            className="bg-white rounded-2xl p-6 w-full max-w-lg shadow-2xl border border-[#EDE9FE]"
+            className="dash-glass w-full max-w-lg p-6 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-4">

@@ -44,6 +44,7 @@
   --dash-sidebar-link-active-bg: rgba(91, 61, 245, 0.18);
   --dash-sidebar-link-active-text: #4f3dee;
   --dash-sidebar-link-active-bar: #4f3dee;
+  --dash-glass-blur: 18px;
 }
 
 .dark {
@@ -84,6 +85,7 @@
   --dash-sidebar-link-active-bg: rgba(160, 120, 255, 0.22);
   --dash-sidebar-link-active-text: #ddd4ff;
   --dash-sidebar-link-active-bar: #b197ff;
+  --dash-glass-blur: 22px;
 }
 
 html,
@@ -100,6 +102,92 @@ body {
 .dashboard-theme {
   background: var(--dash-bg);
   color: var(--dash-text);
+}
+
+/* Lighter, airy dashboard canvas (site light mode) */
+html:not(.dark) .dashboard-theme {
+  --dash-bg:
+    radial-gradient(ellipse 110% 80% at 8% -20%, rgba(139, 92, 246, 0.1), transparent 52%),
+    radial-gradient(ellipse 80% 50% at 96% 0%, rgba(34, 211, 238, 0.08), transparent 48%),
+    linear-gradient(148deg, #f7faff 0%, #eef4ff 45%, #fbfcff 100%);
+}
+
+/* Premium depth: dashboard-only overrides in dark mode */
+.dark .dashboard-theme {
+  --dash-bg:
+    radial-gradient(ellipse 130% 90% at 12% -40%, rgba(139, 92, 246, 0.28), transparent 58%),
+    radial-gradient(ellipse 85% 55% at 100% -5%, rgba(34, 211, 238, 0.16), transparent 52%),
+    radial-gradient(ellipse 50% 38% at 50% 108%, rgba(99, 102, 241, 0.12), transparent 48%),
+    linear-gradient(172deg, #030510 0%, #080d22 40%, #0c1430 100%);
+  --dash-sidebar-bg: rgba(5, 8, 20, 0.82);
+  --dash-sidebar-border: rgba(160, 185, 240, 0.12);
+  --dash-surface: rgba(16, 20, 42, 0.65);
+  --dash-surface-muted: rgba(22, 28, 54, 0.78);
+}
+
+/* Frosted glass surface for cards & panels */
+.dashboard-theme .dash-glass {
+  position: relative;
+  border-radius: 1.25rem;
+  background: linear-gradient(
+    155deg,
+    color-mix(in srgb, var(--dash-surface) 92%, transparent) 0%,
+    color-mix(in srgb, var(--dash-surface-muted) 78%, transparent) 100%
+  );
+  backdrop-filter: blur(var(--dash-glass-blur)) saturate(1.28);
+  -webkit-backdrop-filter: blur(var(--dash-glass-blur)) saturate(1.28);
+  border: 1px solid color-mix(in srgb, var(--dash-border) 75%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, #ffffff 28%, transparent) inset,
+    0 22px 55px -24px rgba(91, 61, 245, 0.1);
+}
+
+.dark .dashboard-theme .dash-glass {
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.02) 35%,
+    rgba(8, 12, 28, 0.52) 100%
+  );
+  border-color: rgba(175, 195, 245, 0.14);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.07) inset,
+    0 32px 80px -36px rgba(0, 0, 0, 0.72),
+    0 0 80px -40px rgba(139, 92, 246, 0.14);
+}
+
+.dashboard-theme .dash-glass-header {
+  border-bottom: 1px solid color-mix(in srgb, var(--dash-border) 85%, transparent);
+}
+
+.dark .dashboard-theme .dash-glass-header {
+  border-bottom-color: rgba(160, 180, 230, 0.12);
+}
+
+/* Primary CTA — luminous gradient (Proofengine brand) */
+.dashboard-theme .dash-btn-primary {
+  border-radius: 0.875rem;
+  background: linear-gradient(120deg, #6d28d9 0%, #5b3df5 40%, #0891b2 100%);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12) inset,
+    0 14px 40px -12px rgba(91, 61, 245, 0.55);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.dashboard-theme .dash-btn-primary:hover {
+  filter: brightness(1.06);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.16) inset,
+    0 18px 48px -12px rgba(91, 61, 245, 0.65);
+}
+
+.dashboard-theme .dash-btn-primary:active {
+  transform: scale(0.98);
 }
 
 .dashboard-theme .bg-white,

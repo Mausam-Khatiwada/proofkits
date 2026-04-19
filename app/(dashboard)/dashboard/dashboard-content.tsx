@@ -104,7 +104,7 @@ export function DashboardContent({
         </div>
 
         {!canCreateWidget && (
-          <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-violet-200 bg-violet-50 px-4 py-4 text-sm text-violet-900 md:flex-row md:items-center md:justify-between">
+          <div className="dash-glass mb-5 flex flex-col gap-3 px-4 py-4 text-sm text-violet-900 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="font-semibold">Starter includes 1 widget.</p>
               <p className="text-violet-700">Upgrade to Pro to create unlimited widgets and collections.</p>
@@ -112,7 +112,7 @@ export function DashboardContent({
             <button
               type="button"
               onClick={() => router.push(widgetUpgradeHref)}
-              className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-violet-700"
+              className="dash-btn-primary shrink-0 px-4 py-2 text-sm"
             >
               Upgrade to Pro
             </button>
@@ -129,7 +129,7 @@ export function DashboardContent({
             }}
           >
             <div
-              className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-[#EDE9FE]"
+              className="dash-glass w-full max-w-md p-6 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-lg font-semibold text-gray-900 mb-1">
@@ -155,7 +155,7 @@ export function DashboardContent({
                   <button
                     type="submit"
                     disabled={creating}
-                    className="flex-1 px-4 py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-xl transition-colors disabled:opacity-50"
+                    className="dash-btn-primary flex-1 px-4 py-3 disabled:opacity-50"
                   >
                     {creating ? 'Creating...' : 'Create Widget'}
                   </button>

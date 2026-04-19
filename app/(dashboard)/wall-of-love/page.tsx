@@ -55,7 +55,7 @@ export default async function WallOfLovePage() {
 
       <div className="px-4 py-6 md:px-8">
         {testimonials.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-[#EDE9FE] p-16 text-center">
+          <div className="dash-glass p-16 text-center">
             <Heart className="w-12 h-12 text-violet-200 mx-auto" />
             <p className="text-gray-400 font-medium mt-3">
               No approved testimonials yet
@@ -69,7 +69,7 @@ export default async function WallOfLovePage() {
             {testimonials.map((t) => (
               <div
                 key={t.id}
-                className="bg-white rounded-2xl border border-[#EDE9FE] p-5 shadow-[0_1px_3px_rgba(124,58,237,0.06)] hover:shadow-[0_4px_20px_rgba(124,58,237,0.08)] transition-shadow duration-200"
+                className="dash-glass p-5 transition-shadow duration-300 hover:-translate-y-0.5"
               >
                 <div className="flex items-center gap-1 mb-2">
                   {[1, 2, 3, 4, 5].map((s) => (
